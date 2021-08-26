@@ -3,7 +3,7 @@
 
     <contextName>logback</contextName>
 
-    <property name="PATH" value="/log/course/eureka" />
+    <property name="PATH" value="/log/course/system" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- <filter class="com.example.logback.filter.MyFilter" /> -->
@@ -30,6 +30,7 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level%-50logger{50}:%-4line
                 %green(%-8X{uuid}) %msg%n</pattern>
         </layout>
+
         <!--<encoder>
             <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n
             </pattern>
@@ -47,17 +48,19 @@
         </rollingPolicy>
         <layout>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level%-50logger{50}:%-4line
-                %green(%-8X{uuid}) %msg%n</pattern>
+                %red(%-8X{uuid}) %msg%n</pattern>
         </layout>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
+
         <!--<encoder>
             <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n
             </pattern>
         </encoder>-->
+
     </appender>
 
     <root level="ERROR">
