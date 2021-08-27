@@ -54,6 +54,12 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 
+        <!-- server模块 -->
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>server</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

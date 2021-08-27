@@ -1,4 +1,4 @@
-package com.course.system.app.user.dao;
+package com.course.server.app.user.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 

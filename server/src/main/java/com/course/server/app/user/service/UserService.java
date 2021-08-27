@@ -1,4 +1,4 @@
-package com.course.system.app.user.service;
+package com.course.server.app.user.service;
 
 import org.springframework.stereotype.Service;
 
