@@ -22,12 +22,12 @@
 
 						<div class="position-relative">
 							<div id="login-box" class="login-box visible widget-box no-border">
-								<div class="widget-body">
-									<div class="widget-main">
-										<h4 class="header blue lighter bigger">
+								<div class="widget-body" style="background-color:rgba(0,0,0,0)">
+									<div class="widget-main" style="background-color:rgba(0,0,0,0)">
+										<!-- <h4 class="header blue lighter bigger">
 											<i class="ace-icon fa fa-coffee green"></i>
 											Please Enter Your Information
-										</h4>
+										</h4> -->
 								
 										<div class="space-6"></div>
 
@@ -52,12 +52,12 @@
 													<div class="clearfix">
 														<label class="inline">
 															<input type="checkbox" class="ace" />
-															<span class="lbl"> Remember Me</span>
+															<span class="lbl" style="color:#D67E31">记住我</span>
 														</label>
 
 														<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="ace-icon fa fa-key"></i>
-															<span class="bigger-110">Login</span>
+															<span class="bigger-110">登录</span>
 														</button>
 													</div>
 
@@ -66,7 +66,7 @@
 											</form>
 								
 										<div class="social-or-login center">
-											<span class="bigger-110">Or Login Using</span>
+											<span class="bigger-110">使用第三方登录</span>
 										</div>
 
 										<div class="space-6"></div>
@@ -90,13 +90,13 @@
 										<div>
 										<a href="#" data-target="#forgot-box" class="forgot-password-link">
 											<i class="ace-icon fa fa-arrow-left"></i>
-											I forgot my password
+											忘记密码
 										</a>
 									</div>
 
 									<div>
 										<a href="#" data-target="#signup-box" class="user-signup-link">
-											I want to register
+											账号注册
 											<i class="ace-icon fa fa-arrow-right"></i>
 										</a>
 									</div>
