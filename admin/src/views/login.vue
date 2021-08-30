@@ -55,7 +55,7 @@
 														<span class="lbl" style="color:#D67E31">记住我</span>
 													</label>
 
-													<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+													<button type="button" class="width-35 pull-right btn btn-sm btn-primary" @click="userLogin">
 														<i class="ace-icon fa fa-key"></i>
 														<span class="bigger-110">登录</span>
 													</button>
@@ -97,10 +97,17 @@
 
 <script>
 	
-	$('body').attr('class', 'login-layout light-login');
-	
 	export default {
-		name: 'App'
+		name: 'login',
+		mounted:function(){
+			$('body').removeClass('no-sking');
+			$('body').attr('class', 'login-layout light-login');
+		},
+		methods: {
+			userLogin(){
+				this.$router.push("/admin")
+			}
+		}
 	}
 
 </script>
