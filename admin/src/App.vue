@@ -81,7 +81,7 @@
 											</a>
 
 											<a class="btn btn-danger">
-												<i class="ace-icon fa fa-weiboss"></i>
+												<i class="ace-icon fa fa-weibo"></i>
 											</a>
 										</div>
 									</div><!-- /.widget-main -->
