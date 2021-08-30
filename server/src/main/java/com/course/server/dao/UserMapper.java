@@ -1,4 +1,4 @@
-package com.course.server.mapper;
+package com.course.server.dao;
 
 import com.course.server.app.dto.User;
 import com.course.server.app.dto.UserExample;
