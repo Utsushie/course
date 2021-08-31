@@ -1,8 +1,10 @@
-package com.course.server.dao;
+package com.course.server.mapper;
 
-import com.course.server.app.dto.Chapter;
-import com.course.server.app.dto.ChapterExample;
+import com.course.server.domain.Chapter;
+import com.course.server.domain.ChapterExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface ChapterMapper {
@@ -10,7 +12,7 @@ public interface ChapterMapper {
 
     int deleteByExample(ChapterExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Chapter record);
 
@@ -18,7 +20,7 @@ public interface ChapterMapper {
 
     List<Chapter> selectByExample(ChapterExample example);
 
-    Chapter selectByPrimaryKey(String id);
+    Chapter selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Chapter record, @Param("example") ChapterExample example);
 
@@ -27,4 +29,7 @@ public interface ChapterMapper {
     int updateByPrimaryKeySelective(Chapter record);
 
     int updateByPrimaryKey(Chapter record);
+
+    List<Chapter> getChapterList();
+
 }

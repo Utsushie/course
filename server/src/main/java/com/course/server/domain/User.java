@@ -1,4 +1,4 @@
-package com.course.server.app.dto;
+package com.course.server.domain;
 
 public class User {
     private String id;
