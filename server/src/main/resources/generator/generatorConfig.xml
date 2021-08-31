@@ -51,7 +51,8 @@
             <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
         </table>-->
 
-        <table tableName="cs_base_user" domainObjectName="User" />
+        <!--<table tableName="cs_base_user" domainObjectName="User" />-->
+        <table tableName="cs_chapter" domainObjectName="Chapter" />
 
     </context>
 </generatorConfiguration>
