@@ -16,9 +16,10 @@ import java.util.List;
  * @Author YanXin
  * @Date 2021/8/31
  **/
-public class ChapterServiceImpl{
+@Service
+public class ChapterServiceImpl implements ChapterService{
 
-	/*@Resource
+	@Resource
 	private ChapterMapper chapterMapper;
 
 	@Override
@@ -33,5 +34,5 @@ public class ChapterServiceImpl{
 			chapterDtosList.add(chapterDtoInfo);
 		}
 		return chapterDtosList;
-	}*/
+	}
 }

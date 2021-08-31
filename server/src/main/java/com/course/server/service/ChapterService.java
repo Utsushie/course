@@ -16,22 +16,8 @@ import java.util.List;
  * @Date 2021/8/31
  **/
 @Service
-public class ChapterService {
+public interface ChapterService {
 
-	@Resource
-	private ChapterMapper chapterMapper;
-
-	public List<ChapterDto> getChapterList(ChapterDto chapterDto) {
-		ChapterExample chapterExample = new ChapterExample();
-		List<Chapter> chapterList = chapterMapper.getChapterList();
-		List<ChapterDto> chapterDtosList = new ArrayList<ChapterDto>();
-		for(int i = 0, l = chapterList.size(); i < l;i++){
-			Chapter chapter = chapterList.get(i);
-			ChapterDto chapterDtoInfo = new ChapterDto();
-			BeanUtils.copyProperties(chapter,chapterDtoInfo);
-			chapterDtosList.add(chapterDtoInfo);
-		}
-		return chapterDtosList;
-	}
+	public List<ChapterDto> getChapterList(ChapterDto chapterDto);
 
 }

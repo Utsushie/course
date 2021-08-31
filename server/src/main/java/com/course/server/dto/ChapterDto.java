@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ChapterDto {
-    private String id;
+    private int id;
 
     private String courseId;
 
