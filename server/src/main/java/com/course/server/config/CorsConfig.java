@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Author YanXin
  * @Date 2021/9/1
  **/
-@Configuration
+/*@Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
 	@Override
@@ -21,4 +21,4 @@ public class CorsConfig implements WebMvcConfigurer {
 				.allowCredentials(true)
 				.maxAge(3600);
 	}
-}
+}*/
