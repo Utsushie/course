@@ -88,9 +88,14 @@
 		methods:{
 			getChapterList(){
 				let _this = this;
-				_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapterList').then((response)=>{
+				_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapterList',{
+					params:{
+						page:1,
+						size:10
+					}
+				}).then((response)=>{
 					console.log("列表接口返回结果",response);
-					this.chapterList = response.data
+					this.chapterList = response.data.list;
 				})
 			}
 		}

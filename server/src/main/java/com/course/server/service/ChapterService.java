@@ -17,6 +17,6 @@ import java.util.List;
  **/
 public interface ChapterService {
 
-	public List<ChapterDto> getChapterList(ChapterDto chapterDto);
+	public Object getChapterList(ChapterDto chapterDto);
 
 }

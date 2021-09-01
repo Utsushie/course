@@ -1,14 +1,22 @@
 package com.course.server.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class ChapterDto {
+@JsonIgnoreProperties({"page","size"})
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+public class ChapterDto extends PageDto{
     private int id;
 
     private String courseId;
 
     private String name;
+
+    private List<ChapterDto> chapterDtoList;
 
     @Override
     public String toString() {
