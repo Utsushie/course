@@ -355,7 +355,7 @@
 
 				<ul class="nav nav-list">
 					<li id="welcome-sidebar" class="">
-						<router-link to="/admin/welcome">
+						<router-link to="/welcome">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> 欢迎 </span>
 						</router-link>
@@ -395,7 +395,7 @@
 						</ul>
 					</li>
 					
-					<li class="">
+					<li class="open active">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> 业务管理 </span>
@@ -406,8 +406,8 @@
 						<b class="arrow"></b>
 					
 						<ul class="submenu">
-							<li id="business-chapter-sidebar" class="">
-								<router-link to="/admin/business/chapter">
+							<li id="business-chapter-sidebar" class="active">
+								<router-link to="/business/chapter">
 									<i class="menu-icon fa fa-caret-right"></i>
 									章节管理
 								</router-link>
@@ -503,8 +503,22 @@
 	export default {
 		name: 'admin',
 		mounted:function(){
+			//let _this = this;
 			$('body').removeClass('login-layout light-login');
 			$('body').attr('class','no-skin');
+			console.log("route",this.$route);
+			this.activeSidebar(this.$route.name.replace("/","-") + "-sidebar");
+		},
+		watch:{
+			//只在admin子组件之间跳转时监听才会生效
+			$route: {
+				handler:function(val,oldval){
+					console.log("页面跳转:", val ,oldval);
+					this.$nextTick(function(){
+						this.activeSidebar(this.$route.name.replace("/","-") + "-sidebar");
+					})
+				}
+			}
 		},
 		methods:{
 			activeSidebar: function(id){

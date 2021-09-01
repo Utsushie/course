@@ -13,7 +13,7 @@ import java.util.List;
  * @Date 2021/8/31
  **/
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/chapter")
 public class ChapterController {
 
 	@Resource
