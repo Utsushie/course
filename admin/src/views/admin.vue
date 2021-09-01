@@ -480,9 +480,10 @@
 		name: 'admin',
 		mounted:function(){
 			$('body').removeClass('login-layout light-login');
-			$('body').attr('class','no-sking');
+			$('body').attr('class','no-skin');
 		}
 	}
+
 </script>
 
 <style>

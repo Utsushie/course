@@ -15,7 +15,6 @@ import java.util.List;
  * @Author YanXin
  * @Date 2021/8/31
  **/
-@Service
 public interface ChapterService {
 
 	public List<ChapterDto> getChapterList(ChapterDto chapterDto);

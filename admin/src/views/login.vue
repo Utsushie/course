@@ -96,11 +96,11 @@
 </template>
 
 <script>
-	
+
 	export default {
 		name: 'login',
 		mounted:function(){
-			$('body').removeClass('no-sking');
+			$('body').removeClass('no-skin');
 			$('body').attr('class', 'login-layout light-login');
 		},
 		methods: {
