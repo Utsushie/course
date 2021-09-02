@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<p>
-			<button class="btn btn-primary" @click="getChapterList(page)">
+			<button class="btn btn-primary" @click="getChapterList(1)">
 				<i class="ace-icon fa fa-search"></i>
 				查询
 			</button>
@@ -97,6 +97,7 @@
 		},
 		mounted:function(){
 			let _this = this;
+			_this.$refs.pagination.size = 10;
 			_this.getChapterList(1);
 		},
 		methods:{
@@ -109,7 +110,7 @@
 				_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapterList',{params}).then((response)=>{
 					console.log("列表接口返回结果",response);
 					_this.chapterList = response.data.list;
-					_this.$refs.pagination.render(page,response,data.total);
+					_this.$refs.pagination.render(page,response.data.total);
 				})
 			}
 		}
