@@ -5,11 +5,12 @@ import com.course.server.dto.ChapterDto;
 import com.course.server.service.ChapterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @Author YanXin
@@ -31,8 +32,20 @@ public class ChapterController {
 	 */
 	@RequestMapping(value="/getChapterList")
 	public Object getChapterList(ChapterDto chapterDto){
-		logger.info("getChapterList:" + JSONObject.toJSONString(chapterDto));
-		return chapterService.getChapterList(chapterDto);
+		Object object = chapterService.getChapterList(chapterDto);
+		return object;
+	}
+
+	/**
+	 * 保存课程信息
+	 * @param chapterDto
+	 * @return
+	 */
+	@RequestMapping(value="/saveChapter",method = {RequestMethod.POST})
+	public Object saveChapter(@RequestBody ChapterDto chapterDto){
+		logger.info("saveChapter:" + JSONObject.toJSONString(chapterDto));
+		Object object = chapterService.saveChapter(chapterDto);
+		return object;
 	}
 
 }

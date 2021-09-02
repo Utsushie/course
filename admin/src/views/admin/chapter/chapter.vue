@@ -1,6 +1,11 @@
 <template>
 	<div>
 		<p>
+			<button class="btn btn-success" @click="addChapter()">
+				<i class="ace-icon fa fa-search"></i>
+				新增
+			</button>
+			&nbsp;
 			<button class="btn btn-primary" @click="getChapterList(1)">
 				<i class="ace-icon fa fa-search"></i>
 				查询
@@ -79,16 +84,21 @@
 			</tbody>
 		</table>
 		<pagination ref="pagination" v-bind:list="getChapterList"></pagination>
+		
+		<ChapterEidt></ChapterEidt>
+		
 	</div>
 	
 </template>
 
 <script>
 	
-	import Pagination from "../../components/pagination.vue"
+	import Pagination from "../../../components/pagination.vue"
+	
+	import ChapterEidt from "./chapterEdit.vue"
 	
 	export default {
-		components: {Pagination},
+		components: {Pagination,ChapterEidt},
 		name: 'chapter',
 		data(){
 			return{
@@ -101,6 +111,9 @@
 			_this.getChapterList(1);
 		},
 		methods:{
+			addChapter(){
+				$(".modal").modal("show");
+			},
 			getChapterList(page){
 				let _this = this;
 				let params = {

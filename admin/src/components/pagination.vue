@@ -62,6 +62,7 @@
 			}
 		},
 		methods:{
+			//渲染页面
 			render(page,total){
 				let _this = this;
 				_this.page = page;
@@ -69,6 +70,7 @@
 				_this.pageTotal = Math.ceil(total / _this.size);
 				_this.pages = _this.getPageItems(_this.pageTotal,page,_this.itemCount || 5);
 			},
+			//列表页页码按钮
 			selectPage(page){
 				let _this = this;
 				if(page < 1){
@@ -84,6 +86,7 @@
 					}
 				}
 			},
+			//获取总页面数
 			getPageItems(total, current, length){
 				let items = [];
 				if(length >= total){

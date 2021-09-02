@@ -19,4 +19,6 @@ public interface ChapterService {
 
 	public Object getChapterList(ChapterDto chapterDto);
 
+	public Object saveChapter(ChapterDto chapterDto);
+
 }

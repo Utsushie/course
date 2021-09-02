@@ -10,7 +10,7 @@ import java.util.List;
 @JsonIgnoreProperties({"page","size"})
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class ChapterDto extends PageDto{
-    private int id;
+    private String id;
 
     private String courseId;
 
