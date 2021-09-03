@@ -17,8 +17,13 @@ import java.util.List;
  **/
 public interface ChapterService {
 
+	/* 获取课程列表 */
 	public Object getChapterList(ChapterDto chapterDto);
 
+	/* 获取课程信息 */
+	public Object getChapter(ChapterDto chapterDto);
+
+	/* 保存课程 */
 	public Object saveChapter(ChapterDto chapterDto);
 
 }

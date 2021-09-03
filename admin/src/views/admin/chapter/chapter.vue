@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<p>
-			<button class="btn btn-success" @click="addChapter()">
+			<button class="btn btn-success" @click="editChapter(null)">
 				<i class="ace-icon fa fa-search"></i>
 				新增
 			</button>
@@ -33,7 +33,7 @@
 								<i class="ace-icon fa fa-check bigger-120"></i>
 							</button>
 		
-							<button class="btn btn-xs btn-info">
+							<button class="btn btn-xs btn-info" @click="editChapter(chapter)">
 								<i class="ace-icon fa fa-pencil bigger-120"></i>
 							</button>
 		
@@ -102,7 +102,9 @@
 		name: 'chapter',
 		data(){
 			return{
-				chapterList:[]
+				chapterList:[],
+				modalTitle: '',  //框体名称
+				id:''  //ID
 			}
 		},
 		mounted:function(){
@@ -111,9 +113,20 @@
 			_this.getChapterList(1);
 		},
 		methods:{
-			addChapter(){
+			//编辑按钮显示模态框
+			editChapter(chapter){
+				let _this = this;
+				if(chapter != null){
+					_this.id = chapter.id;
+					_this.modalTitle = '编辑课程';
+					_this.getChapter(chapter.id); 
+				}else{
+					_this.id = '';
+					_this.modalTitle = '新增课程';
+				}
 				$(".modal").modal("show");
 			},
+			//获取课程列表
 			getChapterList(page){
 				let _this = this;
 				let params = {
@@ -121,10 +134,25 @@
 						size:_this.$refs.pagination.size
 					}
 				_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapterList',{params}).then((response)=>{
-					console.log("列表接口返回结果",response);
+					console.log("getChapterList接口返回结果",response);
 					_this.chapterList = response.data.list;
 					_this.$refs.pagination.render(page,response.data.total);
 				})
+			},
+			//获取课程信息
+			getChapter(id){
+				let _this = this;
+				let params = {
+						id:id,
+					}
+					console.log(_this.$refs.chapterEidt);
+					console.log(_this.$refs.chapterEidt.courseId);
+					_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapter',{params}).then((response)=>{
+						console.log("getChapter接口返回结果",response);
+						let data = response.data;
+						_this.$refs.chapterEidt.courseId = data.data.courseId;
+						_this.$refs.chapterEidt.name = data	.data.name;
+					})
 			}
 		}
 	}

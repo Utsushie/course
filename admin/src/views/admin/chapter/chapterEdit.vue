@@ -4,7 +4,7 @@
 	    <div class="modal-content" style="margin-top: 35%;">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">新增课程</h4>
+				<h4 class="modal-title">{{this.$parent.modalTitle}}</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
@@ -46,20 +46,25 @@
 				name:''  //名称
 			}
 		},
+		mounted() {
+			
+		},
 		methods:{
+			//保存课程信息
 			saveChapter(){
 				let _this = this;
 				let params = {
+					id : this.$parent.id,
 					courseId : _this.courseId,
 					name : _this.name
 				}
-				_this.$parent.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/saveChapter',params).then((response)=>{
+				 _this.$parent.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/saveChapter',params).then((response)=>{
 					console.log(response);
 					if(response != null){
-						if(response.data.code != '100'){
-							alert(response.data.msg)
-						}else{
-							alert(response.data.msg)
+						alert(response.data.msg)
+						if(response.data.code == '100'){
+							//刷新列表页
+							_this.$parent.getChapterList(1);
 						}
 					}else{
 						alert("接口请求失败")

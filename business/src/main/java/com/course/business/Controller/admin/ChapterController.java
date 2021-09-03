@@ -48,4 +48,15 @@ public class ChapterController {
 		return object;
 	}
 
+	/**
+	 * 获取课程信息
+	 * @param chapterDto
+	 * @return
+	 */
+	@RequestMapping(value="/getChapter")
+	public Object getChapter(ChapterDto chapterDto){
+		Object object = chapterService.getChapter(chapterDto);
+		return object;
+	}
+
 }
