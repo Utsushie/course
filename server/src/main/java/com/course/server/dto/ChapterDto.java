@@ -16,6 +16,14 @@ public class ChapterDto extends PageDto{
 
     private String name;
 
+    private String createdTime;
+
+    private String updatedTime;
+
+    private String createdBy;
+
+    private String updatedBy;
+
     private List<ChapterDto> chapterDtoList;
 
     @Override

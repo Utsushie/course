@@ -85,7 +85,7 @@
 		</table>
 		<pagination ref="pagination" v-bind:list="getChapterList"></pagination>
 		
-		<ChapterEidt></ChapterEidt>
+		<chapterEdit ref="chapterEdit"></chapterEdit>
 		
 	</div>
 	
@@ -95,10 +95,10 @@
 	
 	import Pagination from "../../../components/pagination.vue"
 	
-	import ChapterEidt from "./chapterEdit.vue"
+	import ChapterEdit from "./chapterEdit.vue"
 	
 	export default {
-		components: {Pagination,ChapterEidt},
+		components: {Pagination,ChapterEdit},
 		name: 'chapter',
 		data(){
 			return{
@@ -109,6 +109,7 @@
 		},
 		mounted:function(){
 			let _this = this;
+			console.log("mounted");
 			_this.$refs.pagination.size = 10;
 			_this.getChapterList(1);
 		},
@@ -145,13 +146,14 @@
 				let params = {
 						id:id,
 					}
-					console.log(_this.$refs.chapterEidt);
-					console.log(_this.$refs.chapterEidt.courseId);
+					console.log(_this.$refs.chapterEdit);
+					console.log(_this.$refs.chapterEdit.courseId);
+					console.log("getChapter");
 					_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapter',{params}).then((response)=>{
 						console.log("getChapter接口返回结果",response);
 						let data = response.data;
-						_this.$refs.chapterEidt.courseId = data.data.courseId;
-						_this.$refs.chapterEidt.name = data	.data.name;
+						_this.$refs.chapterEdit.courseId = data.data.courseId;
+						_this.$refs.chapterEdit.name = data	.data.name;
 					})
 			}
 		}

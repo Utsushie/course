@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +40,7 @@ public class ChapterServiceImpl implements ChapterService{
 		logger.info("getChapterList:" + JSONObject.toJSONString(chapterDto));
 		PageHelper.startPage(chapterDto.getPage(),chapterDto.getSize());
 		ChapterExample chapterExample = new ChapterExample();
+		chapterExample.setOrderByClause("updated_time DESC");
 		List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
 		logger.info("getChapterList--->selectchapterList chapterList:" + JSONObject.toJSONString(chapterList));
 		PageInfo<Chapter> pageInfo = new PageInfo<Chapter>(chapterList);
@@ -72,6 +74,9 @@ public class ChapterServiceImpl implements ChapterService{
 		logger.info("saveChapter--->chapterDto:" + JSONObject.toJSONString(chapterDto));
 		Chapter chapter = new Chapter();
 		BeanUtils.copyProperties(chapterDto,chapter);
+		chapter.setUpdatedTime(new Date());
+		chapter.setCreatedBy("Yx");
+		chapter.setUpdatedBy("Yx");
 		Result returnResult = new Result();
 
 		//校验课程ID是否存在
@@ -87,9 +92,11 @@ public class ChapterServiceImpl implements ChapterService{
 				return returnResult;
 			}else{
 				//修改课程信息
-				chapterExample = new ChapterExample();
-				chapterExample.createCriteria().andIdEqualTo(chapterDto.getId());
-				int count = chapterMapper.updateByExample(chapter,chapterExample);
+				/*chapterExample = new ChapterExample();
+				chapterExample.createCriteria().andIdEqualTo(chapterDto.getId());*/
+				int count = chapterMapper.updateByPrimaryKeySelective(chapter);
+				returnResult.setCode(100);
+				returnResult.setMsg("保存成功");
 			}
 		}else{
 			//课程ID是否已经存在
@@ -98,6 +105,7 @@ public class ChapterServiceImpl implements ChapterService{
 			}else{
 				//保存课程信息
 				chapter.setId(UuidUtil.getShortUuid());
+				chapter.setCreatedTime(new Date());
 				chapterMapper.insert(chapter);
 				returnResult.setCode(100);
 				returnResult.setMsg("保存成功!");
