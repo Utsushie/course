@@ -105,6 +105,7 @@ public class ChapterServiceImpl implements ChapterService{
 				//保存课程信息
 				chapter.setId(UuidUtil.getShortUuid());
 				chapter.setCreatedTime(new Date());
+				chapter.setIsDel(0);
 				chapterMapper.insert(chapter);
 			}
 		}
