@@ -138,6 +138,7 @@
 			},
 			//获取课程列表
 			getChapterList(page){
+				$.blockUI({ message: '<h1>请稍后..</h1>' });
 				let _this = this;
 				let params = {
 						page:page,
@@ -145,6 +146,7 @@
 					}
 				_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapterList',{params}).then((response)=>{
 					console.log("getChapterList接口返回结果",response);
+					$.unblockUI();
 					_this.chapterList = response.data.list;
 					_this.$refs.pagination.render(page,response.data.total);
 				})
@@ -183,12 +185,10 @@
 				    _this.$ajax('http://127.0.0.1:9000/business/admin/chapter/deleteChapter',{params}).then((response)=>{
 				    	if(response != null && response.data.code == 100){
 				    		_this.getChapterList(1);
-							Swal.fire(
-							      '删除成功!',
-							      '删除成功',
-							      'success'
-							    )
-				    	}
+							toast.success("删除成功")
+				    	}else{
+							toast.error("删除失败");
+						}
 				    })
 				  }
 				})

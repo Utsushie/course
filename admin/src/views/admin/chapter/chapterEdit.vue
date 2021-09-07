@@ -68,6 +68,7 @@
 					console.log(response);
 					if(response != null){
 						if(response.data.code == 100){
+							$.blockUI();
 							toast.success(response.data.msg)
 							_this.courseId = '';
 							_this.name = '';
