@@ -59,4 +59,15 @@ public class ChapterController {
 		return object;
 	}
 
+	/**
+	 * 删除课程信息
+	 * @param chapterDto
+	 * @return
+	 */
+	@RequestMapping(value="/deleteChapter")
+	public Object deleteChapter(ChapterDto chapterDto){
+		Object object = chapterService.deleteChapter(chapterDto);
+		return object;
+	}
+
 }

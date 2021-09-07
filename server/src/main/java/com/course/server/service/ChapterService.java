@@ -26,4 +26,7 @@ public interface ChapterService {
 	/* 保存课程 */
 	public Object saveChapter(ChapterDto chapterDto);
 
+	/* 删除课程 */
+	public Object deleteChapter(ChapterDto chapterDto);
+
 }

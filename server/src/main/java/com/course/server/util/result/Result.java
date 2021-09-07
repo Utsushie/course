@@ -1,5 +1,8 @@
 package com.course.server.util.result;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class Result<T> {
     private Integer code;
     private String msg;

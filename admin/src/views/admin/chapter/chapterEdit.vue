@@ -70,6 +70,8 @@
 						if(response.data.code == 100){
 							//$('.alert').html(response.data.msg).addClass('alert-success').show().delay(1500).fadeOut();
 							success_prompt(response.data.msg,1200);
+							_this.courseId = '';
+							_this.name = '';
 							$(".modal").modal("hide");
 							//刷新列表页
 							_this.$parent.getChapterList(1);
@@ -125,7 +127,7 @@
 	.alert {
 		display: none;
 		position: fixed;
-		top: 10%;
+		top: 12%;
 		left: 50%;
 		min-width: 300px;
 		max-width: 600px;

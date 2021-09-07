@@ -9,6 +9,8 @@ public class Chapter {
 
     private String name;
 
+    private Integer isDel;
+
     private Date createdTime;
 
     private Date updatedTime;
@@ -39,6 +41,14 @@ public class Chapter {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 
     public Date getCreatedTime() {
@@ -82,6 +92,7 @@ public class Chapter {
         sb.append(", id=").append(id);
         sb.append(", courseId=").append(courseId);
         sb.append(", name=").append(name);
+        sb.append(", isDel=").append(isDel);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);
         sb.append(", createdBy=").append(createdBy);

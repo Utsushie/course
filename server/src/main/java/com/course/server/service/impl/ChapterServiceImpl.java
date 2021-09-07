@@ -9,6 +9,7 @@ import com.course.server.domain.ChapterExample;
 import com.course.server.service.ChapterService;
 import com.course.server.util.UuidUtil;
 import com.course.server.util.result.Result;
+import com.course.server.util.result.ResultUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ public class ChapterServiceImpl implements ChapterService{
 		logger.info("getChapterList:" + JSONObject.toJSONString(chapterDto));
 		PageHelper.startPage(chapterDto.getPage(),chapterDto.getSize());
 		ChapterExample chapterExample = new ChapterExample();
+		chapterExample.createCriteria().andIsDelEqualTo(0);
 		chapterExample.setOrderByClause("updated_time DESC");
 		List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
 		logger.info("getChapterList--->selectchapterList chapterList:" + JSONObject.toJSONString(chapterList));
@@ -77,55 +79,65 @@ public class ChapterServiceImpl implements ChapterService{
 		chapter.setUpdatedTime(new Date());
 		chapter.setCreatedBy("Yx");
 		chapter.setUpdatedBy("Yx");
-		Result returnResult = new Result();
 
 		//校验课程ID是否存在
 		ChapterExample chapterExample = new ChapterExample();
-		chapterExample.createCriteria().andCourseIdEqualTo(chapterDto.getCourseId());
+		chapterExample.createCriteria().andCourseIdEqualTo(chapterDto.getCourseId()).andIsDelEqualTo(0);
 
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
 		if(StringUtils.hasLength(chapterDto.getId())){
 			//规避当前ID
-			chapterExample.createCriteria().andIdNotEqualTo(chapterDto.getId());
+			chapterExample.createCriteria().andIdNotEqualTo(chapterDto.getId());;
 			//课程ID是否已经存在
-			if(this.checkExistedCourseId(chapterExample,returnResult)){
-				return returnResult;
+			if(this.checkExistedCourseId(chapterExample)){
+				return ResultUtil.error(900,"课程ID已经存在");
 			}else{
 				//修改课程信息
 				/*chapterExample = new ChapterExample();
 				chapterExample.createCriteria().andIdEqualTo(chapterDto.getId());*/
 				int count = chapterMapper.updateByPrimaryKeySelective(chapter);
-				returnResult.setCode(100);
-				returnResult.setMsg("保存成功");
 			}
 		}else{
 			//课程ID是否已经存在
-			if(this.checkExistedCourseId(chapterExample,returnResult)){
-				return returnResult;
+			if(this.checkExistedCourseId(chapterExample)){
+				return ResultUtil.error(900,"课程ID已经存在");
 			}else{
 				//保存课程信息
 				chapter.setId(UuidUtil.getShortUuid());
 				chapter.setCreatedTime(new Date());
 				chapterMapper.insert(chapter);
-				returnResult.setCode(100);
-				returnResult.setMsg("保存成功!");
 			}
 		}
-		logger.info("saveChapter--->returnResult:" + JSONObject.toJSONString(returnResult));
-		return returnResult;
+		return ResultUtil.success();
 	}
 
 	//检查课程ID是否已经存在
-	public boolean checkExistedCourseId(ChapterExample chapterExample,Result returnResult){
+	public boolean checkExistedCourseId(ChapterExample chapterExample){
 		boolean resultFlag = false;
 		//查询课程ID是否被使用
 		List<Chapter> existedChapterList = chapterMapper.selectByExample(chapterExample);
 		if(!CollectionUtils.isEmpty(existedChapterList)){
-			returnResult.setCode(900);
-			returnResult.setMsg("课程ID已存在!");
 			resultFlag = true;
 		}
 		return resultFlag;
+	}
+
+	@Override
+	public Object deleteChapter(ChapterDto chapterDto) {
+		logger.info("deleteChapter ---> chapterDto:" + JSONObject.toJSONString(chapterDto));
+		Chapter chapter = this.copyProperties(chapterDto);
+		chapter.setIsDel(1);
+		chapter.setUpdatedTime(new Date());
+		chapter.setUpdatedBy("Yx");
+		int count = chapterMapper.updateByPrimaryKeySelective(chapter);
+		return ResultUtil.success();
+	}
+
+	//实体类转换
+	public Chapter copyProperties(ChapterDto chapterDto){
+		Chapter chapter = new Chapter();
+		BeanUtils.copyProperties(chapterDto,chapter);
+		return chapter;
 	}
 
 }

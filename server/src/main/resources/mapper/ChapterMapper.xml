@@ -5,6 +5,7 @@
     <id column="id" jdbcType="CHAR" property="id" />
     <result column="course_id" jdbcType="CHAR" property="courseId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
     <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, course_id, name, created_time, updated_time, created_by, updated_by
+    id, course_id, name, is_del, created_time, updated_time, created_by, updated_by
   </sql>
   <select id="selectByExample" parameterType="com.course.server.domain.ChapterExample" resultMap="BaseResultMap">
     select
@@ -103,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.course.server.domain.Chapter">
     insert into cs_chapter (id, course_id, name, 
-      created_time, updated_time, created_by, 
-      updated_by)
+      is_del, created_time, updated_time, 
+      created_by, updated_by)
     values (#{id,jdbcType=CHAR}, #{courseId,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
-      #{updatedBy,jdbcType=VARCHAR})
+      #{isDel,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.course.server.domain.Chapter">
     insert into cs_chapter
@@ -120,6 +121,9 @@
       </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="isDel != null">
+        is_del,
       </if>
       <if test="createdTime != null">
         created_time,
@@ -143,6 +147,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
       </if>
       <if test="createdTime != null">
         #{createdTime,jdbcType=TIMESTAMP},
@@ -176,6 +183,9 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
       <if test="record.createdTime != null">
         created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       </if>
@@ -198,6 +208,7 @@
     set id = #{record.id,jdbcType=CHAR},
       course_id = #{record.courseId,jdbcType=CHAR},
       name = #{record.name,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
       created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
       created_by = #{record.createdBy,jdbcType=VARCHAR},
@@ -214,6 +225,9 @@
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
       </if>
       <if test="createdTime != null">
         created_time = #{createdTime,jdbcType=TIMESTAMP},
@@ -234,6 +248,7 @@
     update cs_chapter
     set course_id = #{courseId,jdbcType=CHAR},
       name = #{name,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP},
       created_by = #{createdBy,jdbcType=VARCHAR},
