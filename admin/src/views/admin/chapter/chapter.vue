@@ -34,7 +34,7 @@
 								<i class="ace-icon fa fa-pencil bigger-120"></i>
 							</button>
 							<!-- 删除按钮 -->
-							<button class="btn btn-xs btn-danger" @click="showDeleteModal(chapter)">
+							<button class="btn btn-xs btn-danger" @click="deleteChapter(chapter)">
 								<i class="ace-icon fa fa-trash-o bigger-120"></i>
 							</button>
 		
@@ -79,7 +79,7 @@
 		</table>
 		
 		<!-- 模态框   信息删除确认 -->
-		<div class="modal fade" id="delcfmOverhaul">
+<!-- 		<div class="modal fade" id="delcfmOverhaul">
 			<div class="modal-dialog">
 				<div class="modal-content message_align">
 					<div class="modal-header">
@@ -89,20 +89,7 @@
 						</button>
 						<h4 class="modal-title">提示</h4>
 					</div>
-					<div class="modal-body">
-						<!-- 隐藏需要删除的id -->
-						<input type="hidden" id="deleteId" />
-						<p>您确认要删除该条信息吗？</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default"
-							data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary"
-							@click="deleteRecord()">确认</button>
-					</div>
-				</div>
-			</div>
-		</div>
+					<div class="modal-body"> sss-->		
 		<pagination ref="pagination" v-bind:list="getChapterList"></pagination>
 		
 		<chapterEdit ref="chapterEdit"></chapterEdit>
@@ -176,106 +163,40 @@
 					})
 			},
 			//删除
-			deleteRecord(){
+			deleteChapter(chapter){
 				let _this = this;
-				console.log($("#deleteId").val());
-				let params = {
-					id:$("#deleteId").val()
-				}
-				_this.$ajax('http://127.0.0.1:9000/business/admin/chapter/deleteChapter',{params}).then((response)=>{
-					if(response != null && response.data.code == 100){
-						success_prompt(response.data.msg,1200);
-						$(".modal").modal("hide");
-						_this.getChapterList(1);
-					}
+				
+				Swal.fire({
+				  title: '确认删除?',
+				  text: "删除成功后不可恢复!",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '确认',
+				  cancelButtonText: '取消'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				    let params = {
+				    	id:chapter.id
+				    }
+				    _this.$ajax('http://127.0.0.1:9000/business/admin/chapter/deleteChapter',{params}).then((response)=>{
+				    	if(response != null && response.data.code == 100){
+				    		_this.getChapterList(1);
+							Swal.fire(
+							      '删除成功!',
+							      '删除成功',
+							      'success'
+							    )
+				    	}
+				    })
+				  }
 				})
-			},
-			// 打开询问是否删除的模态框
-			showDeleteModal(chapter) {
-			    $("#deleteId").val(chapter.id);// 将模态框中需要删除的大修的ID设为需要删除的ID
-			    $("#delcfmOverhaul").modal({
-			        backdrop : 'static',
-			        keyboard : false
-			    });
 			}
 		}
 	}
 	
-	var prompt = function (message, style, time)
-	{
-	    style = (style === undefined) ? 'alert-success' : style;
-	    time = (time === undefined) ? 1200 : time;
-	    $('<div>')
-	        .appendTo('body')
-	        .addClass('alert ' + style)
-	        .html(message)
-	        .show()
-	        .delay(time)
-	        .fadeOut();
-	};
-	
-	// 成功提示
-	var success_prompt = function(message, time)
-	{
-	    prompt(message, 'alert-success', time);
-	};
-	
-	// 失败提示
-	var fail_prompt = function(message, time)
-	{
-	    prompt(message, 'alert-danger', time);
-	};
-	
-	// 提醒
-	var warning_prompt = function(message, time)
-	{
-	    prompt(message, 'alert-warning', time);
-	};
-	
-	// 信息提示
-	var info_prompt = function(message, time)
-	{
-	    prompt(message, 'alert-info', time);
-	};
-	
 </script>
 
 <style>
-	.alert {
-		display: none;
-		position: fixed;
-		top: 30%;
-		left: 50%;
-		min-width: 300px;
-		max-width: 600px;
-		transform: translate(-50%,-50%);
-		z-index: 99999;
-		text-align: center;
-		padding: 15px;
-		border-radius: 3px;
-	}
-	
-	.alert-success {
-	    color: #3c763d;
-	    background-color: #dff0d8;
-	    border-color: #d6e9c6;
-	}
-	
-	.alert-info {
-	    color: #31708f;
-	    background-color: #d9edf7;
-	    border-color: #bce8f1;
-	}
-	
-	.alert-warning {
-	    color: #8a6d3b;
-	    background-color: #fcf8e3;
-	    border-color: #faebcc;
-	}
-	
-	.alert-danger {
-	    color: #a94442;
-	    background-color: #f2dede;
-	    border-color: #ebccd1;
-	}
 </style>

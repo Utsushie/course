@@ -8,4 +8,4 @@ CREATE table `cs_chapter` (
 
 ALTER table cs_chapter CHANGE id id  CHAR(64) NOT NULL;
 ALTER table cs_chapter CHANGE course_id course_id  CHAR(64);
-ALTER table cs_chapter ADD COLUMN is_del int(2) default 0;
+ALTER table cs_chapter ADD COLUMN is_del int(2) default 0 COMMENT '是否删除:0-否;1-是';
