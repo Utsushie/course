@@ -47,11 +47,11 @@ Toast = {
 			timer: 1500
 		})
 	},
-	warnings: function(message){
+	warning: function(message){
 		Swal.fire({
 			position: 'top-end',
-			icon: 'warnings',
-			title: messages,
+			icon: 'warning',
+			title: message,
 			showConfirmButton: false,
 			timer: 1500
 		})

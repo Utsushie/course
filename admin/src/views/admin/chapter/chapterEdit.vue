@@ -58,20 +58,25 @@
 		methods:{
 			//保存课程信息
 			saveChapter(){
-				Loading.show();
 				let _this = this;
+				if(!Validator.require(_this.courseId,"课程ID")
+				 || !Validator.require(_this.name,"名称")
+				 || !Validator.length(_this.courseId,"课程ID",1,8)){
+					return;
+				}
 				let params = {
 					id : this.$parent.id,
 					courseId : _this.courseId,
 					name : _this.name
 				}
+				Loading.show();
 				 _this.$parent.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/saveChapter',params).then((response)=>{
 					console.log(response);
 					Loading.hide();
 					if(response != null){
 						if(response.data.code == 100){
 							$.blockUI();
-							toast.success(response.data.msg)
+							Toast.success(response.data.msg)
 							_this.courseId = '';
 							_this.name = '';
 							$(".modal").modal("hide");
