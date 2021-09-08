@@ -138,7 +138,7 @@
 			},
 			//获取课程列表
 			getChapterList(page){
-				$.blockUI({ message: '<h1>请稍后..</h1>' });
+				Loading.show();
 				let _this = this;
 				let params = {
 						page:page,
@@ -146,7 +146,7 @@
 					}
 				_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapterList',{params}).then((response)=>{
 					console.log("getChapterList接口返回结果",response);
-					$.unblockUI();
+					Loading.hide();
 					_this.chapterList = response.data.list;
 					_this.$refs.pagination.render(page,response.data.total);
 				})

@@ -58,6 +58,7 @@
 		methods:{
 			//保存课程信息
 			saveChapter(){
+				Loading.show();
 				let _this = this;
 				let params = {
 					id : this.$parent.id,
@@ -66,6 +67,7 @@
 				}
 				 _this.$parent.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/saveChapter',params).then((response)=>{
 					console.log(response);
+					Loading.hide();
 					if(response != null){
 						if(response.data.code == 100){
 							$.blockUI();
