@@ -13,6 +13,6 @@ Loading = {
 		//等待延时
 		setTimeout(function(){
 			$.unblockUI();
-		}, 500)
+		}, 200)
 	}
 };

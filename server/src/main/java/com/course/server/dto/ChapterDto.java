@@ -16,6 +16,8 @@ public class ChapterDto extends PageDto{
 
     private String name;
 
+    private int isDel;
+
     private String createdTime;
 
     private String updatedTime;

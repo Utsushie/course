@@ -167,31 +167,22 @@
 			//删除
 			deleteChapter(chapter){
 				let _this = this;
-				
-				Swal.fire({
-				  title: '确认删除?',
-				  text: "删除成功后不可恢复!",
-				  icon: 'warning',
-				  showCancelButton: true,
-				  confirmButtonColor: '#3085d6',
-				  cancelButtonColor: '#d33',
-				  confirmButtonText: '确认',
-				  cancelButtonText: '取消'
-				}).then((result) => {
-				  if (result.isConfirmed) {
-				    let params = {
-				    	id:chapter.id
-				    }
-				    _this.$ajax('http://127.0.0.1:9000/business/admin/chapter/deleteChapter',{params}).then((response)=>{
-				    	if(response != null && response.data.code == 100){
-				    		_this.getChapterList(1);
-							toast.success("删除成功")
-				    	}else{
-							toast.error("删除失败");
+				Comfirm.show("删除成功后不可恢复!",function(){
+					Loading.show();
+					let params = {
+						id:chapter.id
+					}
+					_this.$ajax('http://127.0.0.1:9000/business/admin/chapter/deleteChapter',{params}).then((response)=>{
+						if(response != null && response.data.code == 100){
+							Loading.hide();
+							_this.getChapterList(1);
+							Toast.success("删除成功")
+						}else{
+							Toast.error("删除失败");
 						}
-				    })
-				  }
+					})
 				})
+				
 			}
 		}
 	}
