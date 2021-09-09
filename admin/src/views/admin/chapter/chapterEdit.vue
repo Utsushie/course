@@ -59,11 +59,11 @@
 			//保存课程信息
 			saveChapter(){
 				let _this = this;
-				if(!Validator.require(_this.courseId,"课程ID")
+				/* if(!Validator.require(_this.courseId,"课程ID")
 				 || !Validator.require(_this.name,"名称")
 				 || !Validator.length(_this.courseId,"课程ID",1,8)){
 					return;
-				}
+				} */
 				let params = {
 					id : this.$parent.id,
 					courseId : _this.courseId,

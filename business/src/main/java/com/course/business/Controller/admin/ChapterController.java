@@ -3,6 +3,7 @@ package com.course.business.Controller.admin;
 import com.alibaba.fastjson.JSONObject;
 import com.course.server.dto.ChapterDto;
 import com.course.server.service.ChapterService;
+import com.course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +45,11 @@ public class ChapterController {
 	@RequestMapping(value="/saveChapter",method = {RequestMethod.POST})
 	public Object saveChapter(@RequestBody ChapterDto chapterDto){
 		logger.info("saveChapter:" + JSONObject.toJSONString(chapterDto));
+
+		ValidatorUtil.require(chapterDto.getName(),"名称");
+		ValidatorUtil.require(chapterDto.getCourseId(),"课程ID");
+		ValidatorUtil.length(chapterDto.getCourseId(),"课程ID",1,8);
+
 		Object object = chapterService.saveChapter(chapterDto);
 		return object;
 	}
