@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 public class ValidatorUtil {
 
 	public static void require(String str, String fieldName) {
-		if(StringUtils.hasLength(str)){
+		if(!StringUtils.hasLength(str)){
 			throw new ValidatorException(fieldName + "不能为空");
 		}
 	}

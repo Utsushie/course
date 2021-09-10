@@ -131,6 +131,8 @@
 					_this.modalTitle = '编辑课程';
 					_this.getChapter(chapter.id); 
 				}else{
+					_this.$refs.chapterEdit.courseId = '';
+					_this.$refs.chapterEdit.name = '';
 					_this.id = '';
 					_this.modalTitle = '新增课程';
 				}
