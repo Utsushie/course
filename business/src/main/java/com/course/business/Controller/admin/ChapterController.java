@@ -23,6 +23,8 @@ public class ChapterController {
 
 	private static Logger logger = LoggerFactory.getLogger(ChapterController.class);
 
+	private final String BUSINESS_NAME = "章节";
+
 	@Resource
 	private ChapterService chapterService;
 
