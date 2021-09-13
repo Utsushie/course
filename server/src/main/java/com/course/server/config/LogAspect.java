@@ -36,19 +36,21 @@ public class LogAspect {
 
 	@Pointcut("execution(public * com.course.*.controller..*Controller.*(..))")
 
-	public void controllerpoint(){}
+	public void controllerPointcut(){}
 
-	@Before("controllerpoint()")
+	@Before("controllerPointcut()")
 	public void doBefore(JoinPoint joinPoint) throws Throwable{
 
 		//日志编号
 		MDC.put("UUID", UuidUtil.getShortUuid());
 
+		//开始打印请求日志
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = attributes.getRequest();
 		Signature singnature = joinPoint.getSignature();
 		String name = singnature.getName();
 
+		//打印业务操作
 		String nameCn = "";
 		if(name.contains("list") || name.contains("query") || name.contains("get")){
 			nameCn = "查询";

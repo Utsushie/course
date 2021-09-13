@@ -147,7 +147,6 @@
 						size:_this. $refs.pagination.size
 					}
 				_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapterList',{params}).then((response)=>{
-					console.log("getChapterList接口返回结果",response);
 					Loading.hide();
 					_this.chapterList = response.data.list;
 					_this.$refs.pagination.render(page,response.data.total);
@@ -160,7 +159,6 @@
 						id:id,
 					}
 					_this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/getChapter',{params}).then((response)=>{
-						console.log("getChapter接口返回结果",response);
 						let data = response.data;
 						_this.$refs.chapterEdit.courseId = data.data.courseId;
 						_this.$refs.chapterEdit.name = data	.data.name;
