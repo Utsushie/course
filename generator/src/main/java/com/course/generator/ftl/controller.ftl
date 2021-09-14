@@ -1,4 +1,4 @@
-package com.course.business.Controller.admin;
+package com.course.${module}.Controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.course.server.dto.${Domain}Dto;
@@ -23,7 +23,7 @@ public class ${Domain}Controller {
 
 	private static Logger logger = LoggerFactory.getLogger(${Domain}Controller.class);
 
-	private final String BUSINESS_NAME = "章节";
+	private final String BUSINESS_NAME = "${tableName}";
 
 	@Resource
 	private ${Domain}Service ${domain}Service;
@@ -48,9 +48,9 @@ public class ${Domain}Controller {
 	public Object save${Domain}(@RequestBody ${Domain}Dto ${domain}Dto){
 		logger.info("save${Domain}:" + JSONObject.toJSONString(${domain}Dto));
 
-		ValidatorUtil.require(${domain}Dto.getName(),"名称");
-		ValidatorUtil.require(${domain}Dto.getCourseId(),"课程ID");
-		ValidatorUtil.length(${domain}Dto.getCourseId(),"课程ID",1,8);
+		//ValidatorUtil.require(${domain}Dto.getName(),"名称");
+		//ValidatorUtil.require(${domain}Dto.getCourseId(),"课程ID");
+		//ValidatorUtil.length(${domain}Dto.getCourseId(),"课程ID",1,8);
 
 		Object object = ${domain}Service.save${Domain}(${domain}Dto);
 		return object;
