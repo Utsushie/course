@@ -52,7 +52,8 @@
         </table>-->
 
         <!--<table tableName="cs_base_user" domainObjectName="User" />-->
-        <table tableName="cs_chapter" domainObjectName="Chapter" />
+        <!--<table tableName="cs_chapter" domainObjectName="Chapter" />-->
+        <table tableName="cs_section" domainObjectName="Section" />
 
     </context>
 </generatorConfiguration>
