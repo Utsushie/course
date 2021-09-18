@@ -15,7 +15,7 @@ public class DbUtil {
 	public static Connection getConnection(){
 		Connection conn = null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://8.135.14.136:3306/course_system";
 			String user = "yx";
 			String pass = "yx2016";
@@ -79,7 +79,7 @@ public class DbUtil {
 	}
 
 	public static String lineToHump(String str){
-		Pattern linePattern = Pattern.compile("(\\w)");
+		Pattern linePattern = Pattern.compile("_(\\w)");
 		str = str.toLowerCase();
 		Matcher matcher = linePattern.matcher(str);
 		StringBuffer sb = new StringBuffer();

@@ -37,7 +37,7 @@ public class GeneratorServer {
 
 		//生成dto
 		FreeMarkerUtil.initConfig("dto.ftl");
-		FreeMarkerUtil.generator(toDtoPath + Domain + "Dto",map);
+		FreeMarkerUtil.generator(toDtoPath + Domain + "Dto.java",map);
 
 		FreeMarkerUtil.initConfig("serviceImpl.ftl");
 		FreeMarkerUtil.generator(toServerImplPath + Domain + "ServiceImpl.java",map);
