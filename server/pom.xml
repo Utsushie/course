@@ -44,6 +44,11 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+        </dependency>
+
         <!-- 热部署插件devtools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
