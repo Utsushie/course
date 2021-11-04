@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<p>
-			<button class="btn btn-success" @click="edit${Domain}(null)">
+			<button class="btn btn-success" @click="editSection(null)">
 				<i class="ace-icon fa fa-search"></i>
 				新增
 			</button>
 			&nbsp;
-			<button class="btn btn-primary" @click="get${Domain}List(1)">
+			<button class="btn btn-primary" @click="getSectionList(1)">
 				<i class="ace-icon fa fa-search"></i>
 				查询
 			</button>
@@ -14,28 +14,48 @@
 		<table id="simple-table" class="table  table-bordered table-hover">
 			<thead>
 			<tr>
-                <#list fieldList as field>
-					<th>${field.nameCn}</th>
-                </#list>
+					<th>ID</th>
+					<th>课程ID</th>
+					<th>章节ID</th>
+					<th>标题</th>
+					<th>视频</th>
+					<th>时长</th>
+					<th>收费:0-否;1-是</th>
+					<th>顺序</th>
+					<th>是否删除:0-否;1-是</th>
+					<th>创建时间</th>
+					<th>更新时间</th>
+					<th>创建人</th>
+					<th>修改人</th>
 				<th>操作</th>
 			</tr>
 			</thead>
 
 			<tbody>
-			<tr v-for="${domain} in ${domain}List">
-                <#list fieldList as field>
-					<td>{{${domain}.${field.nameHump}}}</td>
-                </#list>
+			<tr v-for="section in sectionList">
+					<td>{{section.id}}</td>
+					<td>{{section.courseId}}</td>
+					<td>{{section.chapterId}}</td>
+					<td>{{section.title}}</td>
+					<td>{{section.video}}</td>
+					<td>{{section.time}}</td>
+					<td>{{section.charge}}</td>
+					<td>{{section.sort}}</td>
+					<td>{{section.isDel}}</td>
+					<td>{{section.createdTime}}</td>
+					<td>{{section.updatedTime}}</td>
+					<td>{{section.createdBy}}</td>
+					<td>{{section.updatedBy}}</td>
 
 
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
 						<!-- 编辑按钮 -->
-						<button class="btn btn-xs btn-info" @click="edit${Domain}(${domain})">
+						<button class="btn btn-xs btn-info" @click="editSection(section)">
 							<i class="ace-icon fa fa-pencil bigger-120"></i>
 						</button>
 						<!-- 删除按钮 -->
-						<button class="btn btn-xs btn-danger" @click="delete${Domain}(${domain})">
+						<button class="btn btn-xs btn-danger" @click="deleteSection(section)">
 							<i class="ace-icon fa fa-trash-o bigger-120"></i>
 						</button>
 
@@ -91,9 +111,9 @@
 								<h4 class="modal-title">提示</h4>
 							</div>
 							<div class="modal-body"> sss-->
-		<pagination ref="pagination" v-bind:list="get${Domain}List"></pagination>
+		<pagination ref="pagination" v-bind:list="getSectionList"></pagination>
 
-		<${domain}Edit ref="${domain}Edit"></${domain}Edit>
+		<sectionEdit ref="sectionEdit"></sectionEdit>
 
 	</div>
 
@@ -103,16 +123,16 @@
 
 	import Pagination from "../../../components/pagination.vue"
 
-	import ${Domain}Edit from "./${domain}Edit.vue"
+	import SectionEdit from "./sectionEdit.vue"
 
-	//import { delete${Domain} } from "../../../api/${domain}/${domain}.js"
+	//import { deleteSection } from "../../../api/section/section.js"
 
 	export default {
-		components: {Pagination,${Domain}Edit},
-		name: '${domain}',
+		components: {Pagination,SectionEdit},
+		name: 'section',
 		data(){
 			return{
-				${domain}List:[],
+				sectionList:[],
 				modalTitle: '',  //框体名称
 				id:''  //ID
 			}
@@ -121,62 +141,61 @@
 			let _this = this;
 			console.log("mounted");
 			_this.$refs.pagination.size = 10;
-			_this.get${Domain}List(1);
+			_this.getSectionList(1);
 		},
 		methods:{
 			//编辑按钮显示模态框
-			edit${Domain}(${domain}){
+			editSection(section){
 				let _this = this;
-				if(${domain} != null){
-					_this.id = ${domain}.id;
+				if(section != null){
+					_this.id = section.id;
 					_this.modalTitle = '编辑课程';
-					_this.get${Domain}(${domain}.id);
+					_this.getSection(section.id);
 				}else{
-					_this.$refs.${domain}Edit.courseId = '';
-					_this.$refs.${domain}Edit.name = '';
+					_this.$refs.sectionEdit.section = {};
 					_this.id = '';
 					_this.modalTitle = '新增课程';
 				}
 				$(".modal").modal("show");
 			},
 			//获取课程列表
-			get${Domain}List(page){
+			getSectionList(page){
 				Loading.show();
 				let _this = this;
 				let params = {
 					page:page,
 					size:_this. $refs.pagination.size
 				}
-				_this.$ajax.get(process.env.VUE_APP_SERVER +'/${module}/admin/${domain}/get${Domain}List',{params}).then((response)=>{
+				_this.$ajax.get(process.env.VUE_APP_SERVER +'/business/admin/section/getSectionList',{params}).then((response)=>{
 					Loading.hide();
-					_this.${domain}List = response.data.list;
+					_this.sectionList = response.data.list;
 					_this.$refs.pagination.render(page,response.data.total);
 				})
 			},
 			//获取课程信息
-			get${Domain}(id){
+			getSection(id){
 				let _this = this;
 				let params = {
 					id:id,
 				}
-				_this.$ajax.get(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/get${Domain}',{params}).then((response)=>{
+				_this.$ajax.get(process.env.VUE_APP_SERVER + '/business/admin/section/getSection',{params}).then((response)=>{
 					let data = response.data;
-					_this.$refs.${domain}Edit.courseId = data.data.courseId;
-					_this.$refs.${domain}Edit.name = data	.data.name;
+					_this.$refs.sectionEdit.courseId = data.data.courseId;
+					_this.$refs.sectionEdit.name = data	.data.name;
 				})
 			},
 			//删除
-			delete${Domain}(${domain}){
+			deleteSection(section){
 				let _this = this;
 				Comfirm.show("删除成功后不可恢复!",function(){
 					Loading.show();
 					let params = {
-						id:${domain}.id
+						id:section.id
 					}
-					_this.$ajax(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/delete${Domain}',{params}).then((response)=>{
+					_this.$ajax(process.env.VUE_APP_SERVER + '/business/admin/section/deleteSection',{params}).then((response)=>{
 						if(response != null && response.data.code == 100){
 							Loading.hide();
-							_this.get${Domain}List(1);
+							_this.getSectionList(1);
 							Toast.success("删除成功")
 						}else{
 							Toast.error("删除失败");

@@ -8,28 +8,19 @@
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">
-						<div class="form-group">
-							<label class="col-sm-2 control-label">课程ID</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" v-model="courseId">
+                        <#list fieldList as field>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${field.nameCn}</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="${domain}.${field.nameHump}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label">名称</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" v-model="name">
-							</div>
-						</div>
-						<!-- <div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-							  <button type="submit" class="btn btn-default">Sign in</button>
-							</div>
-						</div> -->
+                        </#list>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" @click="saveChapter()">保存</button>
+					<button type="button" class="btn btn-primary" @click="save${Domain}()">保存</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -37,9 +28,9 @@
 </template>
 
 <script>
-	
+
 	export default{
-		name: 'chapterEdit',
+		name: '${domain}Edit',
 		props:{
 			list:{
 				type:Function,
@@ -53,24 +44,24 @@
 			}
 		},
 		mounted() {
-			
+
 		},
 		methods:{
 			//保存课程信息
-			saveChapter(){
+			save${Domain}(){
 				let _this = this;
-				if(!Validator.require(_this.courseId,"课程ID")
-				 || !Validator.require(_this.name,"名称")
-				 || !Validator.length(_this.courseId,"课程ID",1,8)){
+				/*if(!Validator.require(_this.courseId,"课程ID")
+					|| !Validator.require(_this.name,"名称")
+					|| !Validator.length(_this.courseId,"课程ID",1,8)){
 					return;
-				}
+				}*/
 				let params = {
 					id : this.$parent.id,
 					courseId : _this.courseId,
 					name : _this.name
 				}
 				Loading.show();
-				 _this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/saveChapter',params).then((response)=>{
+				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/${tableName}/admin/${domain}/save${Domain}',params).then((response)=>{
 					console.log(response);
 					Loading.hide();
 					if(response != null){
@@ -81,7 +72,7 @@
 							_this.name = '';
 							$(".modal").modal("hide");
 							//刷新列表页
-							_this.$parent.getChapterList(1);
+							_this.$parent.get${Domain}List(1);
 						}else{
 							Toast.warning(response.data.msg)
 						}
