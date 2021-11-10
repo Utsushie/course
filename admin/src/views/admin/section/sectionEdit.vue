@@ -8,66 +8,50 @@
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">
-                        							<div class="form-group">
-								<label class="col-sm-2 control-label">ID</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.id">
-								</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">标题</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" v-model="section.title">
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">课程ID</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.courseId">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">课程ID</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" v-model="section.courseId">
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">章节ID</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.chapterId">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">章节ID</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" v-model="section.chapterId">
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">标题</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.title">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">视频</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" v-model="section.video">
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">视频</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.video">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">时长</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" v-model="section.time">
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">时长</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.time">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">收费</label>
+							<div class="col-sm-10">
+								<select v-model="section.charge" class="form-control">
+									<option v-for="c in CHARGE" v-bind:value="c.key">{{c.value}}</option>
+								</select>
 							</div>
-							<!-- <div class="form-group">
-								<label class="col-sm-2 control-label">收费:0-否;1-是</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.charge">
-								</div>
-							</div> -->
-							<div class="form-group">
-								<label class="col-sm-2 control-label">顺序</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.sort">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">顺序</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" v-model="section.sort">
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">创建人</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.createdBy">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">修改人</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="section.updatedBy">
-								</div>
-							</div>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -106,7 +90,15 @@
 					updatedTime:'',
 					createdBy:'',
 					updatedBy:''
-				}
+				},
+				CHARGE:[
+					{
+						key:"1",value:"收费"
+					},
+					{
+						key:"0",value:"免费"
+					}
+				]
 			}
 		},
 		mounted() {
@@ -116,6 +108,7 @@
 			//保存课程信息
 			saveSection(){
 				let _this = this;
+
 				/*if(!Validator.require(_this.courseId,"课程ID")
 					|| !Validator.require(_this.name,"名称")
 					|| !Validator.length(_this.courseId,"课程ID",1,8)){
@@ -124,11 +117,9 @@
 				console.log("保存课程信息");
 				console.log(_this.section);
 				let params = _this.section;
-				console.log(this.$parent.id);
 				console.log(this.params);
-				_this.params.id = this.$parent.id;
 				Loading.show();
-				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/小节/admin/section/saveSection',params).then((response)=>{
+				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/saveSection',params).then((response)=>{
 					console.log(response);
 					Loading.hide();
 					if(response != null){

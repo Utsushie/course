@@ -9,12 +9,14 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
                         <#list fieldList as field>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">${field.nameCn}</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="${domain}.${field.nameHump}">
+							<#if field.name != "id" && field.nameHump != "createdTime" && field.nameHump != "updatedTime">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">${field.nameCn}</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="${domain}.${field.nameHump}">
+									</div>
 								</div>
-							</div>
+							</#if>
                         </#list>
 					</form>
 				</div>
@@ -50,6 +52,7 @@
 			//保存课程信息
 			save${Domain}(){
 				let _this = this;
+
 				/*if(!Validator.require(_this.courseId,"课程ID")
 					|| !Validator.require(_this.name,"名称")
 					|| !Validator.length(_this.courseId,"课程ID",1,8)){
@@ -61,7 +64,7 @@
 					name : _this.name
 				}
 				Loading.show();
-				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/${tableName}/admin/${domain}/save${Domain}',params).then((response)=>{
+				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/admin/${domain}/save${Domain}',params).then((response)=>{
 					console.log(response);
 					Loading.hide();
 					if(response != null){

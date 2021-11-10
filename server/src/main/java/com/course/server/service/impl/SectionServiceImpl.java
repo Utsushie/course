@@ -87,7 +87,7 @@ public class SectionServiceImpl implements SectionService{
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
 		if(StringUtils.hasLength(sectionDto.getId())){
 			//规避当前ID
-			sectionExample.createCriteria().andIdNotEqualTo(sectionDto.getId());;
+			sectionExample.getOredCriteria().get(0).andIdNotEqualTo(sectionDto.getId());
 			//课程ID是否已经存在
 			if(this.checkExistedCourseId(sectionExample)){
 				return ResultUtil.error(900,"课程ID已经存在");

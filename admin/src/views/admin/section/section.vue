@@ -20,13 +20,9 @@
 					<th>标题</th>
 					<th>视频</th>
 					<th>时长</th>
-					<th>收费:0-否;1-是</th>
 					<th>顺序</th>
-					<th>是否删除:0-否;1-是</th>
 					<th>创建时间</th>
 					<th>更新时间</th>
-					<th>创建人</th>
-					<th>修改人</th>
 				<th>操作</th>
 			</tr>
 			</thead>
@@ -39,15 +35,10 @@
 					<td>{{section.title}}</td>
 					<td>{{section.video}}</td>
 					<td>{{section.time}}</td>
-					<td>{{section.charge}}</td>
+					<td>{{CHARGE | optionKV(section.charge)}}</td>
 					<td>{{section.sort}}</td>
-					<td>{{section.isDel}}</td>
 					<td>{{section.createdTime}}</td>
 					<td>{{section.updatedTime}}</td>
-					<td>{{section.createdBy}}</td>
-					<td>{{section.updatedBy}}</td>
-
-
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
 						<!-- 编辑按钮 -->
@@ -129,12 +120,20 @@
 
 	export default {
 		components: {Pagination,SectionEdit},
-		name: 'section',
+		name: 'sectionInfo',
 		data(){
 			return{
 				sectionList:[],
 				modalTitle: '',  //框体名称
-				id:''  //ID
+				id:'',  //ID
+				CHARGE:[
+					{
+						key:"1",value:"收费"
+					},
+					{
+						key:"0",value:"免费"
+					}
+				]
 			}
 		},
 		mounted:function(){
@@ -180,8 +179,8 @@
 				}
 				_this.$ajax.get(process.env.VUE_APP_SERVER + '/business/admin/section/getSection',{params}).then((response)=>{
 					let data = response.data;
-					_this.$refs.sectionEdit.courseId = data.data.courseId;
-					_this.$refs.sectionEdit.name = data	.data.name;
+					console.log(data);
+					_this.$refs.sectionEdit.section = data.data;
 				})
 			},
 			//删除
