@@ -2,6 +2,7 @@ package com.course.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.course.server.dto.PageDto;
+import com.course.server.enums.SectionChargeEnum;
 import com.course.server.mapper.SectionMapper;
 import com.course.server.dto.SectionDto;
 import com.course.server.domain.Section;
@@ -102,7 +103,8 @@ public class SectionServiceImpl implements SectionService{
 			if(this.checkExistedCourseId(sectionExample)){
 				return ResultUtil.error(900,"课程ID已经存在");
 			}else{
-				//保存课程信息
+				//新增课程信息
+				section.setCharge(SectionChargeEnum.CHARGE.getCode());
 				section.setId(UuidUtil.getShortUuid());
 				section.setCreatedTime(new Date());
 				section.setIsDel(0);

@@ -35,7 +35,7 @@
 					<td>{{section.title}}</td>
 					<td>{{section.video}}</td>
 					<td>{{section.time}}</td>
-					<td>{{CHARGE | optionKV(section.charge)}}</td>
+					<td>{{SECTION_CHARGE | optionKV(section.charge)}}</td>
 					<td>{{section.sort}}</td>
 					<td>{{section.createdTime}}</td>
 					<td>{{section.updatedTime}}</td>
@@ -126,14 +126,7 @@
 				sectionList:[],
 				modalTitle: '',  //框体名称
 				id:'',  //ID
-				CHARGE:[
-					{
-						key:"1",value:"收费"
-					},
-					{
-						key:"0",value:"免费"
-					}
-				]
+				SECTION_CHARGE:SECTION_CHARGE //收费枚举
 			}
 		},
 		mounted:function(){
