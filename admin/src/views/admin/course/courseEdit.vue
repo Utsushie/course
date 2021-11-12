@@ -8,84 +8,72 @@
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">
-                        								<div class="form-group">
-									<label class="col-sm-2 control-label">名称</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.name">
-									</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">ID</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" v-model="course.id">
+							</div>
+						</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">名称</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.name">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">概述</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.summary">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">概述</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.summary">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">时长</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.time">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">时长</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.time">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">价格(元)</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.price">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">价格(元)</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.price">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">封面</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.image">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">封面</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.image">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">级别</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.level">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">级别</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.level">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">收费</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.charge">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">收费</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.charge">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">状态</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.status">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">状态</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.status">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">报名数</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.enroll">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">报名数</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.enroll">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">顺序</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.sort">
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">顺序</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" v-model="course.sort">
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">是否删除:0-否;1-是</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.isDel">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">创建人</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.createdBy">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">修改人</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" v-model="course.updatedBy">
-									</div>
-								</div>
+							</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -109,8 +97,19 @@
 		},
 		data(){
 			return{
-				courseId: '',  //课程ID
-				name:''  //名称
+				course:{
+					id:'',
+					name:'',
+					summary:'',
+					time:'',
+					price:'',
+					image:'',
+					level:'',
+					charge:'',
+					status:'',
+					enroll:'',
+					sort:''
+				}
 			}
 		},
 		mounted() {
@@ -126,21 +125,16 @@
 					|| !Validator.length(_this.courseId,"课程ID",1,8)){
 					return;
 				}*/
-				let params = {
-					id : this.$parent.id,
-					courseId : _this.courseId,
-					name : _this.name
-				}
+				let params = _this.course;
 				Loading.show();
-				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/admin/course/saveCourse',params).then((response)=>{
+				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/saveCourse',params).then((response)=>{
 					console.log(response);
 					Loading.hide();
 					if(response != null){
 						if(response.data.code == 100){
 							$.blockUI();
 							Toast.success(response.data.msg)
-							_this.courseId = '';
-							_this.name = '';
+							_this.course = {};
 							$(".modal").modal("hide");
 							//刷新列表页
 							_this.$parent.getCourseList(1);

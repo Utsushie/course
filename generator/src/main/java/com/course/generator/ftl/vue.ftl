@@ -132,8 +132,7 @@
 					_this.modalTitle = '编辑课程';
 					_this.get${Domain}(${domain}.id);
 				}else{
-					_this.$refs.${domain}Edit.courseId = '';
-					_this.$refs.${domain}Edit.name = '';
+					_this.$refs.${domain}Edit.${domain} = {};
 					_this.id = '';
 					_this.modalTitle = '新增课程';
 				}

@@ -41,8 +41,11 @@
 		},
 		data(){
 			return{
-				courseId: '',  //课程ID
-				name:''  //名称
+				${domain}:{
+				<#list fieldList as field>
+					${field.nameHump}:'',
+				</#list>
+				}
 			}
 		},
 		mounted() {
@@ -58,21 +61,16 @@
 					|| !Validator.length(_this.courseId,"课程ID",1,8)){
 					return;
 				}*/
-				let params = {
-					id : this.$parent.id,
-					courseId : _this.courseId,
-					name : _this.name
-				}
+				let params = _this.${domain};
 				Loading.show();
-				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/admin/${domain}/save${Domain}',params).then((response)=>{
+				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/save${Domain}',params).then((response)=>{
 					console.log(response);
 					Loading.hide();
 					if(response != null){
 						if(response.data.code == 100){
 							$.blockUI();
 							Toast.success(response.data.msg)
-							_this.courseId = '';
-							_this.name = '';
+							_this.${domain} = {};
 							$(".modal").modal("hide");
 							//刷新列表页
 							_this.$parent.get${Domain}List(1);

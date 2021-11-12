@@ -87,7 +87,7 @@ public class CourseServiceImpl implements CourseService{
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
 		if(StringUtils.hasLength(courseDto.getId())){
 			//规避当前ID
-			courseExample.createCriteria().andIdNotEqualTo(courseDto.getId());;
+			courseExample.getOredCriteria().get(0).andIdNotEqualTo(courseDto.getId());
 			//课程ID是否已经存在
 			if(this.checkExistedCourseId(courseExample)){
 				return ResultUtil.error(900,"课程ID已经存在");

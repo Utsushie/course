@@ -25,11 +25,8 @@
 					<th>状态</th>
 					<th>报名数</th>
 					<th>顺序</th>
-					<th>是否删除:0-否;1-是</th>
 					<th>创建时间</th>
 					<th>更新时间</th>
-					<th>创建人</th>
-					<th>修改人</th>
 				<th>操作</th>
 			</tr>
 			</thead>
@@ -42,16 +39,13 @@
 					<td>{{course.time}}</td>
 					<td>{{course.price}}</td>
 					<td>{{course.image}}</td>
-					<td>{{course.level}}</td>
-					<td>{{course.charge}}</td>
-					<td>{{course.status}}</td>
+					<td>{{COURSE_LEVEL | optionKV(course.level)}}</td>
+					<td>{{COURSE_CHARGE | optionKV(course.charge)}}</td>
+					<td>{{COURSE_STATUS | optionKV(course.status)}}</td>
 					<td>{{course.enroll}}</td>
 					<td>{{course.sort}}</td>
-					<td>{{course.isDel}}</td>
 					<td>{{course.createdTime}}</td>
 					<td>{{course.updatedTime}}</td>
-					<td>{{course.createdBy}}</td>
-					<td>{{course.updatedBy}}</td>
 
 
 				<td>
@@ -140,7 +134,10 @@
 			return{
 				courseList:[],
 				modalTitle: '',  //框体名称
-				id:''  //ID
+				id:'',  //ID
+				COURSE_CHARGE:COURSE_CHARGE,
+				COURSE_LEVEL:COURSE_LEVEL,
+				COURSE_STATUS:COURSE_STATUS
 			}
 		},
 		mounted:function(){
@@ -158,8 +155,7 @@
 					_this.modalTitle = '编辑课程';
 					_this.getCourse(course.id);
 				}else{
-					_this.$refs.courseEdit.courseId = '';
-					_this.$refs.courseEdit.name = '';
+					_this.$refs.courseEdit.course = {};
 					_this.id = '';
 					_this.modalTitle = '新增课程';
 				}

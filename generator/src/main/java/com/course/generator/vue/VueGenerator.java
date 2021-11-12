@@ -32,8 +32,8 @@ public class VueGenerator {
 		map.put("typeSet", typeSet);
 
 		//生成dto
-		FreeMarkerUtil.initConfig("vue.ftl");
-		FreeMarkerUtil.generator(toVuePath + domain + ".vue",map);
+		/*FreeMarkerUtil.initConfig("vue.ftl");
+		FreeMarkerUtil.generator(toVuePath + domain + ".vue",map);*/
 
 		//生成dto
 		FreeMarkerUtil.initConfig("vueEdit.ftl");
