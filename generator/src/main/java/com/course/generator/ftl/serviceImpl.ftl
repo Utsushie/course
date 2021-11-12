@@ -82,7 +82,7 @@ public class ${Domain}ServiceImpl implements ${Domain}Service{
 
 		//校验课程ID是否存在
 		${Domain}Example ${domain}Example = new ${Domain}Example();
-		${domain}Example.createCriteria().andCourseIdEqualTo(${domain}Dto.getCourseId()).andIsDelEqualTo(0);
+		${domain}Example.createCriteria().andIdEqualTo(${domain}Dto.getId()).andIsDelEqualTo(0);
 
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
 		if(StringUtils.hasLength(${domain}Dto.getId())){

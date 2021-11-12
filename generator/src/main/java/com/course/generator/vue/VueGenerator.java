@@ -13,17 +13,15 @@ import java.util.*;
 public class VueGenerator {
 
 	static String MODULE = "business";
-	static String toVuePath = "admin\\src\\views\\admin\\section\\";
-	static String toEditVuePath = "admin\\src\\views\\admin\\section\\";
-	static String toServerImplPath = "server\\src\\main\\java\\com\\course\\server\\service\\impl\\";
-	static String toControllerPath = "business\\src\\main\\java\\com\\course\\" + MODULE +"\\controller\\admin\\";
+	static String toVuePath = "admin\\src\\views\\admin\\course\\";
+	static String toEditVuePath = "admin\\src\\views\\admin\\course\\";
 
 	public static void main(String[] args) throws Exception {
-		String Domain = "Section";
-		String domain = "section";
-		String tableName = "小节";
+		String Domain = "Course";
+		String domain = "course";
+		String tableName = "课程";
 		String module = "business";
-		List<Field> fieldList = DbUtil.getColumnByTableName("cs_section");
+		List<Field> fieldList = DbUtil.getColumnByTableName("cs_course");
 		Set<String> typeSet = getJavaTypes(fieldList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("Domain",Domain);

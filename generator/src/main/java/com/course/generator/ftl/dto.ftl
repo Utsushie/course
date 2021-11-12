@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 		import com.fasterxml.jackson.annotation.JsonFormat;
 	</#if>
 	<#if type=='BigDecimal'>
-		import java.math.BigDecimal
+		import java.math.BigDecimal;
 	</#if>
 </#list>
 

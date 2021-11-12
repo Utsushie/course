@@ -1,6 +1,6 @@
 package com.course.server.service;
 
-import java.util.List
+import java.util.List;
 import com.course.server.dto.${Domain}Dto;
 
 /**

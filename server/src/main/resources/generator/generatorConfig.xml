@@ -53,7 +53,8 @@
 
         <!--<table tableName="cs_base_user" domainObjectName="com.course.server.dto.User" />-->
         <!--<table tableName="cs_chapter" domainObjectName="Chapter" />-->
-        <table tableName="cs_section" domainObjectName="Section" />
+        <!--<table tableName="cs_section" domainObjectName="Section" />-->
+        <table tableName="cs_course" domainObjectName="Course" />
 
     </context>
 </generatorConfiguration>
