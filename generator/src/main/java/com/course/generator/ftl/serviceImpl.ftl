@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import com.course.server.enums.OptionEnum;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -85,9 +86,9 @@ public class ${Domain}ServiceImpl implements ${Domain}Service{
 		${domain}Example.createCriteria().andIdEqualTo(${domain}Dto.getId()).andIsDelEqualTo(0);
 
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
-		if(StringUtils.hasLength(${domain}Dto.getId())){
+		if(OptionEnum.EDIT.getCode().equals(${domain}Dto.getOptionType())){
 			//规避当前ID
-			${domain}Example.createCriteria().getOredCriteria().get(0).andIdNotEqualTo(${domain}Dto.getId());;
+			${domain}Example.getOredCriteria().get(0).andIdNotEqualTo(${domain}Dto.getId());;
 			//课程ID是否已经存在
 			if(this.checkExistedCourseId(${domain}Example)){
 				return ResultUtil.error(900,"课程ID已经存在");

@@ -1,7 +1,7 @@
 <template>
 	<div class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content" style="margin-top: 35%;">
+			<div class="modal-content" style="margin-top: 25%;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">{{this.$parent.modalTitle}}</h4>
@@ -47,19 +47,25 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label">级别</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="course.level">
+									<select class="form-control" v-model="course.level">
+										<option v-for="level in COURSE_LEVEL" v-bind:value="level.key">{{level.value}}</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">收费</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="course.charge">
+									<select class="form-control" v-model="course.charge">
+										<option v-for="charge in COURSE_CHARGE" v-bind:value="charge.key">{{charge.value}}</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">状态</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="course.status">
+									<select class="form-control" v-model="course.status">
+										<option v-for="status in COURSE_STATUS" v-bind:value="status.key">{{status.value}}</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -108,8 +114,12 @@
 					charge:'',
 					status:'',
 					enroll:'',
-					sort:''
-				}
+					sort:'',
+					optionType:''
+				},
+				COURSE_CHARGE:COURSE_CHARGE,
+				COURSE_LEVEL:COURSE_LEVEL,
+				COURSE_STATUS:COURSE_STATUS
 			}
 		},
 		mounted() {
@@ -126,6 +136,7 @@
 					return;
 				}*/
 				let params = _this.course;
+				params.optionType = _this.$parent.optionType;
 				Loading.show();
 				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/saveCourse',params).then((response)=>{
 					console.log(response);

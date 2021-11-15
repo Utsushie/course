@@ -2,6 +2,7 @@ package com.course.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.course.server.dto.PageDto;
+import com.course.server.enums.OptionEnum;
 import com.course.server.enums.SectionChargeEnum;
 import com.course.server.mapper.SectionMapper;
 import com.course.server.dto.SectionDto;
@@ -86,7 +87,7 @@ public class SectionServiceImpl implements SectionService{
 		sectionExample.createCriteria().andCourseIdEqualTo(sectionDto.getCourseId()).andIsDelEqualTo(0);
 
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
-		if(StringUtils.hasLength(sectionDto.getId())){
+		if(OptionEnum.EDIT.getCode().equals(sectionDto.getOptionType())){
 			//规避当前ID
 			sectionExample.getOredCriteria().get(0).andIdNotEqualTo(sectionDto.getId());
 			//课程ID是否已经存在

@@ -28,6 +28,8 @@ public class ChapterDto extends PageDto{
 
     private List<ChapterDto> chapterDtoList;
 
+    private String optionType;
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

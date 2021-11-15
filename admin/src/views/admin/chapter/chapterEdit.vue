@@ -1,7 +1,7 @@
 <template>
 	<div class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content" style="margin-top: 35%;">
+			<div class="modal-content" style="margin-top: 25%;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">{{this.$parent.modalTitle}}</h4>
@@ -49,7 +49,8 @@
 		data(){
 			return{
 				courseId: '',  //课程ID
-				name:''  //名称
+				name:'',  //名称
+				optionType:''
 			}
 		},
 		mounted() {
@@ -67,7 +68,8 @@
 				let params = {
 					id : this.$parent.id,
 					courseId : _this.courseId,
-					name : _this.name
+					name : _this.name,
+					optionType : _this.$parent.optionType
 				}
 				Loading.show();
 				 _this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/saveChapter',params).then((response)=>{

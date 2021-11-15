@@ -126,7 +126,8 @@
 				sectionList:[],
 				modalTitle: '',  //框体名称
 				id:'',  //ID
-				SECTION_CHARGE:SECTION_CHARGE //收费枚举
+				SECTION_CHARGE:SECTION_CHARGE, //收费枚举
+				optionType:'' //编辑操作
 			}
 		},
 		mounted:function(){
@@ -141,10 +142,12 @@
 				let _this = this;
 				if(section != null){
 					_this.id = section.id;
+					_this.optionType = 'edit';
 					_this.modalTitle = '编辑课程';
 					_this.getSection(section.id);
 				}else{
 					_this.$refs.sectionEdit.section = {};
+					_this.optionType = 'add';
 					_this.id = '';
 					_this.modalTitle = '新增课程';
 				}
@@ -171,8 +174,6 @@
 					id:id,
 				}
 				_this.$ajax.get(process.env.VUE_APP_SERVER + '/business/admin/section/getSection',{params}).then((response)=>{
-					let data = response.data;
-					console.log(data);
 					_this.$refs.sectionEdit.section = data.data;
 				})
 			},

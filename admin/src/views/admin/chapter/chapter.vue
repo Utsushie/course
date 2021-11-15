@@ -113,7 +113,8 @@
 			return{
 				chapterList:[],
 				modalTitle: '',  //框体名称
-				id:''  //ID
+				id:'',  //ID
+				optionType:'' //编辑操作
 			}
 		},
 		mounted:function(){
@@ -128,11 +129,13 @@
 				let _this = this;
 				if(chapter != null){
 					_this.id = chapter.id;
+					_this.optionType = 'edit';
 					_this.modalTitle = '编辑课程';
 					_this.getChapter(chapter.id); 
 				}else{
 					_this.$refs.chapterEdit.courseId = '';
 					_this.$refs.chapterEdit.name = '';
+					_this.optionType = 'add';
 					_this.id = '';
 					_this.modalTitle = '新增课程';
 				}

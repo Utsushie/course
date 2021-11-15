@@ -2,6 +2,7 @@ package com.course.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.course.server.dto.PageDto;
+import com.course.server.enums.OptionEnum;
 import com.course.server.mapper.ChapterMapper;
 import com.course.server.dto.ChapterDto;
 import com.course.server.domain.Chapter;
@@ -85,7 +86,7 @@ public class ChapterServiceImpl implements ChapterService{
 		chapterExample.createCriteria().andCourseIdEqualTo(chapterDto.getCourseId()).andIsDelEqualTo(0);
 
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
-		if(StringUtils.hasLength(chapterDto.getId())){
+		if(OptionEnum.EDIT.getCode().equals(chapterDto.getOptionType())){
 			//规避当前ID
 			chapterExample.createCriteria().andIdNotEqualTo(chapterDto.getId());;
 			//课程ID是否已经存在

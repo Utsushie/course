@@ -137,7 +137,8 @@
 				id:'',  //ID
 				COURSE_CHARGE:COURSE_CHARGE,
 				COURSE_LEVEL:COURSE_LEVEL,
-				COURSE_STATUS:COURSE_STATUS
+				COURSE_STATUS:COURSE_STATUS,
+				optionType:'' //编辑操作
 			}
 		},
 		mounted:function(){
@@ -152,10 +153,12 @@
 				let _this = this;
 				if(course != null){
 					_this.id = course.id;
+					_this.optionType = 'edit';
 					_this.modalTitle = '编辑课程';
 					_this.getCourse(course.id);
 				}else{
 					_this.$refs.courseEdit.course = {};
+					_this.optionType = 'add';
 					_this.id = '';
 					_this.modalTitle = '新增课程';
 				}
@@ -183,8 +186,7 @@
 				}
 				_this.$ajax.get(process.env.VUE_APP_SERVER + '/business/admin/course/getCourse',{params}).then((response)=>{
 					let data = response.data;
-					_this.$refs.courseEdit.courseId = data.data.courseId;
-					_this.$refs.courseEdit.name = data	.data.name;
+					_this.$refs.courseEdit.course = data.data;
 				})
 			},
 			//删除

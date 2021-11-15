@@ -1,7 +1,7 @@
 <template>
 	<div class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content" style="margin-top: 35%;">
+			<div class="modal-content" style="margin-top: 25%;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">{{this.$parent.modalTitle}}</h4>
@@ -89,7 +89,8 @@
 					createdTime:'',
 					updatedTime:'',
 					createdBy:'',
-					updatedBy:''
+					updatedBy:'',
+					optionType:''
 				},
 				SECTION_CHARGE:SECTION_CHARGE //收费枚举
 			}
@@ -110,6 +111,7 @@
 				console.log("保存课程信息");
 				console.log(_this.section);
 				let params = _this.section;
+				params.optionType = _this.$parent.optionType;
 				console.log(this.params);
 				Loading.show();
 				_this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/saveSection',params).then((response)=>{
