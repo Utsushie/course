@@ -41,6 +41,7 @@ public class CourseServiceImpl implements CourseService{
 	public Object getCourseList(CourseDto courseDto) {
 		logger.info("getCourseList:" + JSONObject.toJSONString(courseDto));
 		PageHelper.startPage(courseDto.getPage(),courseDto.getSize());
+		//拼接查询sql
 		CourseExample courseExample = new CourseExample();
 		courseExample.createCriteria().andIsDelEqualTo(0);
 		courseExample.setOrderByClause("sort ASC");

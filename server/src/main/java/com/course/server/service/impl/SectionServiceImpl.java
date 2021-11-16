@@ -84,7 +84,7 @@ public class SectionServiceImpl implements SectionService{
 
 		//校验课程ID是否存在
 		SectionExample sectionExample = new SectionExample();
-		sectionExample.createCriteria().andCourseIdEqualTo(sectionDto.getCourseId()).andIsDelEqualTo(0);
+		sectionExample.createCriteria().andIsDelEqualTo(0);
 
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
 		if(OptionEnum.EDIT.getCode().equals(sectionDto.getOptionType())){
@@ -92,7 +92,7 @@ public class SectionServiceImpl implements SectionService{
 			sectionExample.getOredCriteria().get(0).andIdNotEqualTo(sectionDto.getId());
 			//课程ID是否已经存在
 			if(this.checkExistedCourseId(sectionExample)){
-				return ResultUtil.error(900,"课程ID已经存在");
+				return ResultUtil.error(900,"小节ID已经存在");
 			}else{
 				//修改课程信息
 				/*sectionExample = new SectionExample();

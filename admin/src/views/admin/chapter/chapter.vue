@@ -126,9 +126,8 @@
 		},
 		mounted:function(){
 			let _this = this;
-			console.log("mounted");
 			_this.$refs.pagination.size = 10;
-			let course = SessionStorage.get("course")|| {};
+			let course = SessionStorage.get("course") || {};
 			if(Tool.isEmpty(course)){
 				_this.$router.push("/welcome");
 			}
@@ -139,14 +138,15 @@
 			//编辑按钮显示模态框
 			editChapter(chapter){
 				let _this = this;
+				console.log(_this.course);
+				_this.$refs.chapterEdit.course = _this.course;
 				if(chapter != null){
 					_this.id = chapter.id;
 					_this.optionType = 'edit';
 					_this.modalTitle = '编辑课程';
 					_this.getChapter(chapter.id); 
 				}else{
-					_this.$refs.chapterEdit.courseId = '';
-					_this.$refs.chapterEdit.name = '';
+					_this.$refs.chapterEdit.chapter = {};
 					_this.optionType = 'add';
 					_this.id = '';
 					_this.modalTitle = '新增课程';
@@ -159,7 +159,8 @@
 				let _this = this;
 				let params = {
 						page:page,
-						size:_this. $refs.pagination.size
+						size:_this.$refs.pagination.size,
+						courseId:_this.course.id
 					}
 				_this.$ajax.get(process.env.VUE_APP_SERVER +'/business/admin/chapter/getChapterList',{params}).then((response)=>{
 					Loading.hide();
@@ -175,8 +176,7 @@
 					}
 					_this.$ajax.get(process.env.VUE_APP_SERVER + '/business/admin/chapter/getChapter',{params}).then((response)=>{
 						let data = response.data;
-						_this.$refs.chapterEdit.courseId = data.data.courseId;
-						_this.$refs.chapterEdit.name = data	.data.name;
+						_this.$refs.chapterEdit.chapter = data.data;
 					})
 			},
 			//删除

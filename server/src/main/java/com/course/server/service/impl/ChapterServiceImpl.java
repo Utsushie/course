@@ -41,8 +41,12 @@ public class ChapterServiceImpl implements ChapterService{
 	public Object getChapterList(ChapterDto chapterDto) {
 		logger.info("getChapterList:" + JSONObject.toJSONString(chapterDto));
 		PageHelper.startPage(chapterDto.getPage(),chapterDto.getSize());
+		//拼接查询sql
 		ChapterExample chapterExample = new ChapterExample();
 		chapterExample.createCriteria().andIsDelEqualTo(0);
+		if(StringUtils.hasLength(chapterDto.getCourseId())){
+			chapterExample.getOredCriteria().get(0).andCourseIdEqualTo(chapterDto.getCourseId());
+		}
 		chapterExample.setOrderByClause("updated_time DESC");
 		List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
 		logger.info("getChapterList--->selectchapterList chapterList:" + JSONObject.toJSONString(chapterList));
@@ -83,12 +87,12 @@ public class ChapterServiceImpl implements ChapterService{
 
 		//校验课程ID是否存在
 		ChapterExample chapterExample = new ChapterExample();
-		chapterExample.createCriteria().andCourseIdEqualTo(chapterDto.getCourseId()).andIsDelEqualTo(0);
-
+		ChapterExample.Criteria criteria = chapterExample.createCriteria();
+		criteria.andCourseIdEqualTo(chapterDto.getCourseId()).andIsDelEqualTo(0);
 		//判断id是否为空(spring5.3之后启用StringUtils的isEmpty方法)
 		if(OptionEnum.EDIT.getCode().equals(chapterDto.getOptionType())){
 			//规避当前ID
-			chapterExample.createCriteria().andIdNotEqualTo(chapterDto.getId());;
+			criteria.andIdNotEqualTo(chapterDto.getId());;
 			//课程ID是否已经存在
 			if(this.checkExistedCourseId(chapterExample)){
 				return ResultUtil.error(900,"课程ID已经存在");

@@ -9,15 +9,15 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">课程ID</label>
+							<label class="col-sm-2 control-label">名称</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" v-model="courseId">
+								<input type="text" class="form-control" v-model="chapter.name">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">名称</label>
+							<label class="col-sm-2 control-label">课程</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" v-model="name">
+								<p class="form-control-static">{{course.name}}</p>
 							</div>
 						</div>
 						<!-- <div class="form-group">
@@ -29,7 +29,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" @click="saveChapter()">保存</button>
+					<button type="button" class="btn btn-primary" @click="saveChapter(chapter)">保存</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -48,9 +48,13 @@
 		},
 		data(){
 			return{
-				courseId: '',  //课程ID
-				name:'',  //名称
-				optionType:''
+				chapter:{
+					id:'',
+					courseId: '',  //课程ID
+					name:'',  //名称
+					optionType:''
+				},
+				course:{}
 			}
 		},
 		mounted() {
@@ -58,29 +62,24 @@
 		},
 		methods:{
 			//保存课程信息
-			saveChapter(){
+			saveChapter(chapter){
 				let _this = this;
-				if(!Validator.require(_this.courseId,"课程ID")
-				 || !Validator.require(_this.name,"名称")
-				 || !Validator.length(_this.courseId,"课程ID",1,8)){
+				_this.chapter.id = this.$parent.id;
+				_this.chapter.optionType = _this.$parent.optionType;
+				_this.chapter.courseId = _this.course.id;
+				if(!Validator.require(chapter.courseId,"课程ID")){
 					return;
 				}
-				let params = {
-					id : this.$parent.id,
-					courseId : _this.courseId,
-					name : _this.name,
-					optionType : _this.$parent.optionType
-				}
+				let params = _this.chapter;
 				Loading.show();
 				 _this.$parent.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/saveChapter',params).then((response)=>{
 					console.log(response);
-					Loading.hide();
-					if(response != null){
+				Loading.hide();
+						if(response != null){
 						if(response.data.code == 100){
 							$.blockUI();
 							Toast.success(response.data.msg)
-							_this.courseId = '';
-							_this.name = '';
+							_this.chapter = {};
 							$(".modal").modal("hide");
 							//刷新列表页
 							_this.$parent.getChapterList(1);
