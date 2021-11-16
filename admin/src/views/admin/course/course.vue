@@ -42,6 +42,10 @@
 							<span class="badge badge-info">时长:{{course.time}}</span>
 						</p>
 						<p>
+							<!-- 章节 -->
+							<button class="btn btn-primary btn-xs btn-info btn-round" @click="toChapter(course)">
+								章节
+							</button>
 							<!-- 编辑按钮 -->
 							<button class="btn btn-white btn-xs btn-info btn-round" @click="editCourse(course)">
 								编辑
@@ -166,6 +170,12 @@
 					})
 				})
 
+			},
+			//跳转到章节列表页
+			toChapter(course){
+				let _this = this;
+				SeesionStorage.set("course", course);
+				_this.$router.push("/business/chapter");
 			}
 		}
 	}
