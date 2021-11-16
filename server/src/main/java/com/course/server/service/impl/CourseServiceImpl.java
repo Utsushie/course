@@ -43,7 +43,7 @@ public class CourseServiceImpl implements CourseService{
 		PageHelper.startPage(courseDto.getPage(),courseDto.getSize());
 		CourseExample courseExample = new CourseExample();
 		courseExample.createCriteria().andIsDelEqualTo(0);
-		courseExample.setOrderByClause("updated_time DESC");
+		courseExample.setOrderByClause("sort ASC");
 		List<Course> courseList = courseMapper.selectByExample(courseExample);
 		logger.info("getCourseList--->selectcourseList courseList:" + JSONObject.toJSONString(courseList));
 		PageInfo<Course> pageInfo = new PageInfo<Course>(courseList);

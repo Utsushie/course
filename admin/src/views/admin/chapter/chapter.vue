@@ -1,6 +1,12 @@
 <template>
 	<div>
+		<h3>{{course.name}}</h3>
 		<p>
+			<router-link to="/business/course" class="btn btn-info">
+				<i class="ace-icon fa fa-arrow-left"></i>
+				返回课程
+			</router-link>
+			&nbsp;
 			<button class="btn btn-success" @click="editChapter(null)">
 				<i class="ace-icon fa fa-search"></i>
 				新增
@@ -114,13 +120,19 @@
 				chapterList:[],
 				modalTitle: '',  //框体名称
 				id:'',  //ID
-				optionType:'' //编辑操作
+				optionType:'', //编辑操作
+				course:{}
 			}
 		},
 		mounted:function(){
 			let _this = this;
 			console.log("mounted");
 			_this.$refs.pagination.size = 10;
+			let course = SessionStorage.get("course")|| {};
+			if(Tool.isEmpty(course)){
+				_this.$router.push("/welcome");
+			}
+			_this.course = course;
 			_this.getChapterList(1);
 		},
 		methods:{

@@ -46,6 +46,7 @@
 							<button class="btn btn-primary btn-xs btn-info btn-round" @click="toChapter(course)">
 								章节
 							</button>
+							&nbsp;
 							<!-- 编辑按钮 -->
 							<button class="btn btn-white btn-xs btn-info btn-round" @click="editCourse(course)">
 								编辑
@@ -174,7 +175,7 @@
 			//跳转到章节列表页
 			toChapter(course){
 				let _this = this;
-				SeesionStorage.set("course", course);
+				SessionStorage.set("course", course);
 				_this.$router.push("/business/chapter");
 			}
 		}
