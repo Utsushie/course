@@ -3,6 +3,8 @@ package com.course.server.mapper;
 import com.course.server.domain.Section;
 import com.course.server.domain.SectionExample;
 import java.util.List;
+
+import com.course.server.dto.SectionDto;
 import org.apache.ibatis.annotations.Param;
 
 public interface SectionMapper {
@@ -27,4 +29,9 @@ public interface SectionMapper {
     int updateByPrimaryKeySelective(Section record);
 
     int updateByPrimaryKey(Section record);
+
+    List<SectionDto> getSectionList(SectionDto sectionDto);
+
+    SectionDto getSectionInfo(SectionDto sectionDto);
+
 }

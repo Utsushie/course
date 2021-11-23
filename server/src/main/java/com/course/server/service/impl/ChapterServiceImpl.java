@@ -41,26 +41,26 @@ public class ChapterServiceImpl implements ChapterService{
 	public Object getChapterList(ChapterDto chapterDto) {
 		logger.info("getChapterList:" + JSONObject.toJSONString(chapterDto));
 		PageHelper.startPage(chapterDto.getPage(),chapterDto.getSize());
-		//拼接查询sql
+		/*//拼接查询sql
 		ChapterExample chapterExample = new ChapterExample();
 		chapterExample.createCriteria().andIsDelEqualTo(0);
 		if(StringUtils.hasLength(chapterDto.getCourseId())){
 			chapterExample.getOredCriteria().get(0).andCourseIdEqualTo(chapterDto.getCourseId());
 		}
-		chapterExample.setOrderByClause("updated_time DESC");
-		List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
+		chapterExample.setOrderByClause("updated_time DESC");*/
+		List<ChapterDto> chapterList = chapterMapper.getChapterList(chapterDto);
 		logger.info("getChapterList--->selectchapterList chapterList:" + JSONObject.toJSONString(chapterList));
-		PageInfo<Chapter> pageInfo = new PageInfo<Chapter>(chapterList);
+		PageInfo<ChapterDto> pageInfo = new PageInfo<ChapterDto>(chapterList);
 		PageDto pageDto = new PageDto();
 		pageDto.setTotal(pageInfo.getTotal());
-		List<ChapterDto> chapterDtosList = new ArrayList<ChapterDto>();
+		/*List<ChapterDto> chapterDtosList = new ArrayList<ChapterDto>();
 		for(int i = 0, l = chapterList.size(); i < l;i++){
 			Chapter chapter = chapterList.get(i);
 			ChapterDto chapterDtoInfo = new ChapterDto();
 			BeanUtils.copyProperties(chapter,chapterDtoInfo);
 			chapterDtosList.add(chapterDtoInfo);
-		}
-		pageDto.setList(chapterDtosList);
+		}*/
+		pageDto.setList(chapterList);
 		logger.info("getChapterList--->return pageDto:" + JSONObject.toJSONString(pageDto));
 		return pageDto;
 	}
@@ -69,7 +69,7 @@ public class ChapterServiceImpl implements ChapterService{
 	public Object getChapter(ChapterDto chapterDto) {
 		logger.info("getChapter:" + JSONObject.toJSONString(chapterDto));
 		Result returnResult = new Result();
-		Chapter chapter = chapterMapper.selectByPrimaryKey(chapterDto.getId());
+		ChapterDto chapter = chapterMapper.getChapterInfo(chapterDto);
 		returnResult.setCode(100);
 		returnResult.setMsg("操作成功");
 		returnResult.setData(chapter);
@@ -93,26 +93,13 @@ public class ChapterServiceImpl implements ChapterService{
 		if(OptionEnum.EDIT.getCode().equals(chapterDto.getOptionType())){
 			//规避当前ID
 			criteria.andIdNotEqualTo(chapterDto.getId());;
-			//课程ID是否已经存在
-			if(this.checkExistedCourseId(chapterExample)){
-				return ResultUtil.error(900,"课程ID已经存在");
-			}else{
-				//修改课程信息
-				/*chapterExample = new ChapterExample();
-				chapterExample.createCriteria().andIdEqualTo(chapterDto.getId());*/
-				int count = chapterMapper.updateByPrimaryKeySelective(chapter);
-			}
+			int count = chapterMapper.updateByPrimaryKeySelective(chapter);
 		}else{
-			//课程ID是否已经存在
-			if(this.checkExistedCourseId(chapterExample)){
-				return ResultUtil.error(900,"课程ID已经存在");
-			}else{
-				//保存课程信息
-				chapter.setId(UuidUtil.getShortUuid());
-				chapter.setCreatedTime(new Date());
-				chapter.setIsDel(0);
-				chapterMapper.insert(chapter);
-			}
+			//保存课程信息
+			chapter.setId(UuidUtil.getShortUuid());
+			chapter.setCreatedTime(new Date());
+			chapter.setIsDel(0);
+			chapterMapper.insert(chapter);
 		}
 		return ResultUtil.success();
 	}

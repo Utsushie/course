@@ -133,7 +133,7 @@
 				let _this = this;
 				let params = {
 					page:page,
-					size:_this. $refs.pagination.size
+					size:_this.$refs.pagination.size
 				}
 				_this.$ajax.get(process.env.VUE_APP_SERVER +'/business/admin/course/getCourseList',{params}).then((response)=>{
 					Loading.hide();

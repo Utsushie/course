@@ -1,5 +1,17 @@
 <template>
 	<div>
+		<h4 class="lighter">
+			<span v-show="JSON.stringify(course) != '{}'">
+				<i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+				<a href="/business/course" data-toggle="modal" class="pink">{{course.name}}</a>
+			</span>
+			&nbsp;
+			<span v-show="JSON.stringify(chapter) != '{}'">
+				<i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+				<a href="/business/chapter" data-toggle="modal" class="pink">{{chapter.name}}</a>
+			</span>
+		</h4>
+		<hr>
 		<p>
 			<button class="btn btn-success" @click="editSection(null)">
 				<i class="ace-icon fa fa-search"></i>
@@ -127,13 +139,19 @@
 				modalTitle: '',  //框体名称
 				id:'',  //ID
 				SECTION_CHARGE:SECTION_CHARGE, //收费枚举
-				optionType:'' //编辑操作
+				optionType:'', //编辑操作
+				course:{},
+				chapter:{}
 			}
 		},
 		mounted:function(){
 			let _this = this;
 			console.log("mounted");
 			_this.$refs.pagination.size = 10;
+			let course = SessionStorage.get("course") || {};
+			let chapter = SessionStorage.get("chapter") || {};
+			_this.chapter = chapter;
+			_this.course = course;
 			_this.getSectionList(1);
 		},
 		methods:{
@@ -158,13 +176,14 @@
 				Loading.show();
 				let _this = this;
 				let params = {
+					chapterId:_this.chapter.id,
 					page:page,
-					size:_this. $refs.pagination.size
+					size:_this.$refs.pagination.size
 				}
 				_this.$ajax.get(process.env.VUE_APP_SERVER +'/business/admin/section/getSectionList',{params}).then((response)=>{
 					Loading.hide();
 					_this.sectionList = response.data.list;
-					_this.$refs.pagination.render(page,response.data.total);
+					this.$refs.pagination.render(page,response.data.total);
 				})
 			},
 			//获取课程信息

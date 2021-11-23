@@ -42,22 +42,22 @@ public class SectionServiceImpl implements SectionService{
 	public Object getSectionList(SectionDto sectionDto) {
 		logger.info("getSectionList:" + JSONObject.toJSONString(sectionDto));
 		PageHelper.startPage(sectionDto.getPage(),sectionDto.getSize());
-		SectionExample sectionExample = new SectionExample();
+		/*SectionExample sectionExample = new SectionExample();
 		sectionExample.createCriteria().andIsDelEqualTo(0);
-		sectionExample.setOrderByClause("updated_time DESC");
-		List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
+		sectionExample.setOrderByClause("updated_time DESC");*/
+		List<SectionDto> sectionList = sectionMapper.getSectionList(sectionDto);
 		logger.info("getSectionList--->selectsectionList sectionList:" + JSONObject.toJSONString(sectionList));
-		PageInfo<Section> pageInfo = new PageInfo<Section>(sectionList);
+		PageInfo<SectionDto> pageInfo = new PageInfo<SectionDto>(sectionList);
 		PageDto pageDto = new PageDto();
 		pageDto.setTotal(pageInfo.getTotal());
-		List<SectionDto> sectionDtosList = new ArrayList<SectionDto>();
+		/*List<SectionDto> sectionDtosList = new ArrayList<SectionDto>();
 		for(int i = 0, l = sectionList.size(); i < l;i++){
 			Section section = sectionList.get(i);
 			SectionDto sectionDtoInfo = new SectionDto();
 			BeanUtils.copyProperties(section,sectionDtoInfo);
 			sectionDtosList.add(sectionDtoInfo);
-		}
-		pageDto.setList(sectionDtosList);
+		}*/
+		pageDto.setList(sectionList);
 		logger.info("getSectionList--->return pageDto:" + JSONObject.toJSONString(pageDto));
 		return pageDto;
 	}
@@ -66,7 +66,7 @@ public class SectionServiceImpl implements SectionService{
 	public Object getSection(SectionDto sectionDto) {
 		logger.info("getSection:" + JSONObject.toJSONString(sectionDto));
 		Result returnResult = new Result();
-		Section section = sectionMapper.selectByPrimaryKey(sectionDto.getId());
+		SectionDto section = sectionMapper.getSectionInfo(sectionDto);
 		returnResult.setCode(100);
 		returnResult.setMsg("操作成功");
 		returnResult.setData(section);

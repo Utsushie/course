@@ -2,17 +2,23 @@ package com.course.server.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @JsonIgnoreProperties({"page","size"})
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChapterDto extends PageDto{
     private String id;
 
     private String courseId;
+
+    private String courseName;
 
     private String name;
 

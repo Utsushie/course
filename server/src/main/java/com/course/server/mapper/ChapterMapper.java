@@ -3,6 +3,8 @@ package com.course.server.mapper;
 import com.course.server.domain.Chapter;
 import com.course.server.domain.ChapterExample;
 import java.util.List;
+
+import com.course.server.dto.ChapterDto;
 import org.apache.ibatis.annotations.Param;
 
 public interface ChapterMapper {
@@ -27,4 +29,9 @@ public interface ChapterMapper {
     int updateByPrimaryKeySelective(Chapter record);
 
     int updateByPrimaryKey(Chapter record);
+
+    List<ChapterDto> getChapterList(ChapterDto chpaterDto);
+
+    ChapterDto getChapterInfo(ChapterDto chpaterDto);
+
 }

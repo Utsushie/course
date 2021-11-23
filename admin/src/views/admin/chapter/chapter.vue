@@ -1,8 +1,15 @@
 <template>
 	<div>
-		<h3>{{course.name}}</h3>
+		<h4 class="lighter">
+			<p v-show="JSON.stringify(course) != '{}'">
+				<i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+				<a href="/business/course" data-toggle="modal" class="pink">{{course.name}}</a>
+			</p>
+		</h4>
+		<hr>
+		<!-- <h3>{{course.name}}</h3> -->
 		<p>
-			<router-link to="/business/course" class="btn btn-info">
+			<router-link to="/business/course" class="btn btn-info" v-show="JSON.stringify(course) != '{}'">
 				<i class="ace-icon fa fa-arrow-left"></i>
 				返回课程
 			</router-link>
@@ -35,18 +42,22 @@
 		
 					<td>
 						<div class="hidden-sm hidden-xs btn-group">
+							<!-- 跳转小节页面 -->
+							<button class="btn btn-xs btn-primary" @click="toSection(chapter)">
+								小节
+							</button>
 							<!-- 编辑按钮 -->
 							<button class="btn btn-xs btn-info" @click="editChapter(chapter)">
-								<i class="ace-icon fa fa-pencil bigger-120"></i>
+								编辑
 							</button>
 							<!-- 删除按钮 -->
 							<button class="btn btn-xs btn-danger" @click="deleteChapter(chapter)">
-								<i class="ace-icon fa fa-trash-o bigger-120"></i>
+								删除
 							</button>
 		
 						</div>
 		
-						<div class="hidden-md hidden-lg">
+						<!-- <div class="hidden-md hidden-lg">
 							<div class="inline pos-rel">
 								<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
 									<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
@@ -79,6 +90,7 @@
 								</ul>
 							</div>
 						</div>
+					 -->
 					</td>
 				</tr>
 			</tbody>
@@ -128,9 +140,9 @@
 			let _this = this;
 			_this.$refs.pagination.size = 10;
 			let course = SessionStorage.get("course") || {};
-			if(Tool.isEmpty(course)){
+			/* if(Tool.isEmpty(course)){
 				_this.$router.push("/welcome");
-			}
+			} */
 			_this.course = course;
 			_this.getChapterList(1);
 		},
@@ -165,7 +177,7 @@
 				_this.$ajax.get(process.env.VUE_APP_SERVER +'/business/admin/chapter/getChapterList',{params}).then((response)=>{
 					Loading.hide();
 					_this.chapterList = response.data.list;
-					_this.$refs.pagination.render(page,response.data.total);
+					this.$refs.pagination.render(page,response.data.total);
 				})
 			},
 			//获取课程信息
@@ -198,6 +210,12 @@
 					})
 				})
 				
+			},
+			//跳转到章节列表页
+			toSection(chapter){
+				let _this = this;
+				SessionStorage.set("chapter", chapter);
+				_this.$router.push("/business/section");
 			}
 		}
 	}
