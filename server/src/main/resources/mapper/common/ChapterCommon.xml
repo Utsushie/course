@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.server.mapper.ChapterMapper">
+
+	<!-- 获取大章列表 -->
+	<select id="getChapterList" parameterType="com.course.server.dto.ChapterDto" resultType="com.course.server.dto.ChapterDto">
+		SELECT	t1.id,
+				  t1.course_id AS courseId,
+				  t1.name,
+				  t2.name AS courseName
+		FROM	cs_chapter t1
+					LEFT JOIN cs_course t2
+							  ON		t1.course_id = t2.id
+		WHERE	t1.is_del = 0
+		ORDER BY t1.updated_time DESC
+	</select>
+
+	<!-- 获取大章信息 -->
+	<select id="getChapterInfo" parameterType="com.course.server.dto.ChapterDto" resultType="com.course.server.dto.ChapterDto">
+		SELECT	t1.id,
+	  			t1.course_id AS courseId,
+			  	t1.name,
+			  	t2.name AS courseName
+		FROM	cs_chapter t1
+		LEFT JOIN cs_course t2
+	  	ON		t1.course_id = t2.id
+		WHERE	t1.is_del = 0
+		  AND		t1.id = #{id}
+	</select>
+
+</mapper>

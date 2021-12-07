@@ -22,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -142,6 +143,28 @@ public class SectionServiceImpl implements SectionService{
 		Section section = new Section();
 		BeanUtils.copyProperties(sectionDto,section);
 		return section;
+	}
+
+	public String getProbability(int x,int y,int count){
+		float num = (x*y+x*(100-y))/100;
+		float prCount = 0;
+		double xMol = Math.pow(x,count);
+		double xDen = Math.pow(100,count);
+		double yMol = 0;
+		double yDen = 0;
+		List xPrCount = new ArrayList();
+		List yPrCount = new ArrayList();
+		for(int i=1;i<=count;i++){
+			double xCount = x*(100-x)/100;
+			double yCount = y*(100-y)/100;
+			yMol = (100-x)*(100-y)/100+(100-x) * (100-x)*(y*(100-y)/100);
+		}
+		DecimalFormat decimalFormat= new  DecimalFormat(".0000");
+		return decimalFormat.format(num) + "%";
+	}
+
+	public static void main(String[] args) {
+		System.out.println(new SectionServiceImpl().getProbability(80,90,1));;
 	}
 
 }
